@@ -1,0 +1,59 @@
+
+
+$font-size-base:              1rem;
+$h1-font-size:                $font-size-base * 2.25;
+$h2-font-size:                $font-size-base * 1.75;
+$h3-font-size:                $font-size-base * 1.5;
+$h4-font-size:                $font-size-base * 1.25;
+$h5-font-size:                $font-size-base * 1.1;
+$h6-font-size:                $font-size-base;
+@import '~bootstrap/scss/bootstrap';
+
+
+
+h1:not(:first-child) {
+  margin-top: 2em;
+}
+
+
+@media screen {
+  body {
+    padding-top: 60px;
+    padding-bottom: 100px;
+    background-color: #f5f4ed;
+  }
+}
+
+@media print {
+  @page {
+      size: A4 portrait;
+      margin: 3.7cm 2.6cm 3.5cm;
+  }
+
+  h1 {
+      // page-break-before: always;
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  thead, tfoot, tr, th, td,
+  li {
+      page-break-inside: avoid;
+  }
+
+  body {
+      background-color: white;
+      color: black;
+  }
+
+  nav, aside {
+      display: none;
+  }
+
+  a::after {
+      content: "(" attr(href) ")";
+  }
+
+  thead, tfoot {
+      display: table-row-group;
+  }
+}
