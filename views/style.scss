@@ -15,13 +15,105 @@ h1:not(:first-child) {
   margin-top: 2em;
 }
 
+.footer {
+  margin-top: 280px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: $gray-500;
+  text-align: center;
+  .link {
+    color: inherit;
+  }
+}
+
 
 @media screen {
   body {
     padding-top: 60px;
-    padding-bottom: 100px;
     background-color: #f5f4ed;
   }
+  .paper {
+    background-color: #ffffff;
+    padding: 1.2em;
+    box-shadow: -5px 10px 20px rgba(0,0,0,0.3);
+    position: relative;
+  }
+  .paper-content {
+    padding: 1.4em;
+    background-color: #f1edeee1;
+  }
+  .box {
+    border: 4px solid #666;
+    padding: 1.6em;
+
+  }
+  .pin {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: -30px;
+    &.pin-right {
+      right: 10%;
+      background: url(./images/pin-right.png) center/100% 100% no-repeat;
+    }
+    &.pin-left {
+      left: 10%;
+      background: url(./images/pin-left.png) center/100% 100% no-repeat;
+    }
+  }
+  @include media-breakpoint-up(xs) {
+    .paper {
+      padding: 0.6em;
+    }
+    .paper-content{
+      padding: 0.7em;
+    }
+    .box{
+      padding: 0;
+      border: none;
+    }
+    .pin {
+      width: 20px;
+      height: 20px;
+      top: -10px;
+    }
+  }
+  @include media-breakpoint-up(sm) {
+    .paper {
+      padding: 0.6em;
+    }
+    .paper-content {
+      padding: 0.7em;
+    }
+    .box {
+      padding: 0.8em;
+      border: 2px solid #666;
+    }
+    .pin {
+      width: 30px;
+      height: 30px;
+      top: -16px;
+    }
+  }
+  @include media-breakpoint-up(md) {
+    .paper {
+      padding: 1.2em;
+    }
+    .paper-content{
+      padding: 1.4em;
+    }
+    .box{
+      padding: 1.6em;
+      border: 4px solid #666;
+    }
+    .pin {
+      width: 40px;
+      height: 40px;
+      top: -30px;
+    }
+  }
+  @include media-breakpoint-up(lg) {  }
+  @include media-breakpoint-up(xl) {  }
 }
 
 @media print {

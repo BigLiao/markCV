@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node lib/dev/index",
+    "build": "node lib/build/index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -33,6 +34,7 @@
     "sass": "^1.23.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
+    "url-loader": "^2.2.0",
     "webpack": "^4.41.2",
     "webpack-dev-server": "^3.8.2",
     "webpack-merge": "^4.2.2"
