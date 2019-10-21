@@ -2,10 +2,14 @@
   "name": "markCV",
   "version": "0.0.1",
   "description": "A online resume write tool",
-  "main": "index.js",
+  "bin": {
+    "markcv": "bin/cli"
+  },
   "scripts": {
     "dev": "node lib/dev/index",
     "build": "node lib/build/index",
+    "publish": "node lib/publish/index",
+    "serve": "node lib/serve/index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -19,11 +23,14 @@
     "babel-loader": "^8.0.6",
     "bootstrap": "^4.3.1",
     "clean-webpack-plugin": "^3.0.0",
+    "commander": "^3.0.2",
     "css-loader": "^3.2.0",
     "ejs": "^2.7.1",
     "ejs-loader": "^0.3.5",
+    "express": "^4.17.1",
     "file-loader": "^4.2.0",
     "fs-extra": "^8.1.0",
+    "ghpages": "^0.0.10",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "markdown-it": "^10.0.0",
