@@ -61,6 +61,11 @@ h1:not(:first-child) {
       background: url(./images/pin-left.png) center/100% 100% no-repeat;
     }
   }
+  .tips {
+    text-align: right;
+    color: $gray-500;
+    font-size: 0.8rem;
+  }
   @include media-breakpoint-up(xs) {
     .paper {
       padding: 0.6em;
@@ -93,6 +98,9 @@ h1:not(:first-child) {
       width: 30px;
       height: 30px;
       top: -16px;
+    }
+    .tips {
+      font-size: 1rem;
     }
   }
   @include media-breakpoint-up(md) {

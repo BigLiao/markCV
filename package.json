@@ -12,7 +12,11 @@
     "serve": "node lib/serve/index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["markdown", "resume", "cv"],
+  "keywords": [
+    "markdown",
+    "resume",
+    "cv"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -45,6 +49,7 @@
     "url-loader": "^2.2.0",
     "webpack": "^4.41.2",
     "webpack-dev-server": "^3.8.2",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "yaml": "^1.7.2"
   }
 }
