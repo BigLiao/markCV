@@ -6,8 +6,12 @@ const program = require('commander');
 program
   .version(pkg.version)
   .usage('<markdown_file>')
+
+program
+  .command('write')
+  .description('Generate resume site')
   .action((value, cmd) => {
-    require('../lib/build/cli')(value, cmd);
+    require('../lib/dev/cli')(value, cmd);
   });
 
 program

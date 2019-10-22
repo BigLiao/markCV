@@ -1,2 +1,3 @@
 title: 'markCV - Beautiful online resume' # title in broswer
 publicPath: '/markCV/'
+resumePath: './markdown/resume-template.md'
