@@ -16,7 +16,7 @@ h1:not(:first-child) {
 }
 
 .footer {
-  margin-top: 280px;
+  margin-top: 160px;
   margin-bottom: 20px;
   font-size: 14px;
   color: $gray-500;
@@ -66,6 +66,22 @@ h1:not(:first-child) {
     color: $gray-500;
     font-size: 0.8rem;
   }
+  .stick {
+    box-sizing: border-box;
+    width: 400px;
+    height: 400px;
+    margin-right: 0;
+    margin-left: auto;
+    position: relative;
+    background: url(./images/stick.png) center/100% 100% no-repeat;
+    padding: 150px 100px 120px;
+    .content {
+      transform:  translate(0px,20px) rotate(16deg);
+      font-size: 14px;
+      line-height: 35px;
+      color: $gray-700;
+    }
+  }
   @include media-breakpoint-up(xs) {
     .paper {
       padding: 0.6em;
@@ -81,6 +97,9 @@ h1:not(:first-child) {
       width: 20px;
       height: 20px;
       top: -10px;
+    }
+    .stick {
+      transform: scale(0.6);
     }
   }
   @include media-breakpoint-up(sm) {
@@ -102,6 +121,9 @@ h1:not(:first-child) {
     .tips {
       font-size: 1rem;
     }
+    .stick {
+      transform: scale(0.8);
+    }
   }
   @include media-breakpoint-up(md) {
     .paper {
@@ -118,6 +140,9 @@ h1:not(:first-child) {
       width: 40px;
       height: 40px;
       top: -30px;
+    }
+    .stick {
+      transform: scale(1);
     }
   }
   @include media-breakpoint-up(lg) {  }
