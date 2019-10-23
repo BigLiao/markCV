@@ -1,11 +1,11 @@
 {
   "name": "mark-cv",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "description": "Beautiful online resume using markdown",
   "repository": "https://github.com/BigLiao/markCV/",
   "homepage": "https://github.com/BigLiao/markCV/",
   "bin": {
-    "markcv": "bin/cli"
+    "markcv": "bin/cli.js"
   },
   "scripts": {
     "dev": "node lib/dev/index",
