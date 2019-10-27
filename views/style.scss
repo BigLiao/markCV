@@ -10,7 +10,12 @@ $h6-font-size:                $font-size-base;
 @import '~bootstrap/scss/bootstrap';
 
 
-
+h1 {
+  margin-bottom: 0.7em;
+}
+h2 {
+  margin-bottom: 0.6em;
+}
 h1:not(:first-child) {
   margin-top: 2em;
 }
