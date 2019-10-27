@@ -160,8 +160,8 @@ h1:not(:first-child) {
       margin: 3.7cm 2.6cm 3.5cm;
   }
 
-  h1 {
-      // page-break-before: always;
+  h1, h2 {
+      page-break-after: avoid;
   }
 
   h1, h2, h3, h4, h5, h6,
