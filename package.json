@@ -1,6 +1,6 @@
 {
   "name": "mark-cv",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Beautiful online resume using markdown",
   "repository": "https://github.com/BigLiao/markCV/",
   "homepage": "https://github.com/BigLiao/markCV/",
@@ -20,7 +20,7 @@
     "cv"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.6.4",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
