@@ -8,6 +8,13 @@ program
   .usage('<markdown_file>')
 
 program
+  .command('init')
+  .description('Initialize template')
+  .action((value, cmd) => {
+    require('../lib/init/cli')(value, cmd);
+  });
+
+program
   .command('write')
   .description('Generate resume site')
   .action((value, cmd) => {

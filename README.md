@@ -21,7 +21,7 @@ Markdown 作为一种通用文本格式就可以很好地解决这个问题。�
 ### 安装
 本工具基于 [Node.js](https://nodejs.org) 开发，需要有 `Node.js` 开发环境。
 
-### 使用 npm 安装
+#### 使用 npm 安装
 ```bash
 # 先建一个文件夹存放简历
 mkdir my-resume && cd mkdir my-resume
@@ -32,6 +32,12 @@ npm init -y
 # 安装 markCV
 npm install -S mark-cv
 
+```
+#### 初始化
+直接使用 `npx markcv init`，自动创建简历模板。
+
+或者手动创建：
+```bash
 # 新建简历文件
 touch liming.md
 
@@ -41,16 +47,19 @@ echo '# 李明的个人信息' > liming.md
 # 配置 markCV 
 touch _config.yml
 # 把下面的配置内容抄进来
+```
 
-# 开始写简历
+#### 编辑和预览简历
+```bash
 npx markcv write
-# 打开浏览器访问 http://localhost:3000
-# 可以一边修改 markdown 一边看效果
+```
+打开浏览器访问 http://localhost:3000 可以看到效果。可以一边修改 markdown 一边看效果
 
-# 打包，生成静态网页放在 dist 目录下
+#### 打包
+```bash
 npx markcv build
 ```
-最后把生成的 dist 文件夹部署到服务器就可以了
+生成静态网页放在 dist 目录下。最后把生成的 dist 文件夹部署到服务器就可以了。
 
 没有服务器的话可以部署到 GitHub Pages 上面。本工具提供了快捷命令
 ```bash
