@@ -157,7 +157,7 @@ h1:not(:first-child) {
 @media print {
   @page {
       size: A4 portrait;
-      margin: 3.7cm 2.6cm 3.5cm;
+      // margin: 3.7cm 2.6cm 3.5cm;
   }
 
   h1, h2 {
@@ -171,6 +171,7 @@ h1:not(:first-child) {
   }
 
   body {
+      padding: 60px 30px;
       background-color: white;
       color: black;
   }
