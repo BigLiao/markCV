@@ -78,7 +78,7 @@ npm install
 
 npm run dev # 开发、编写简历
 npm run build # 打包
-npm run publish # 发布到 GitHub Pages
+npm run deploy # 发布到 GitHub Pages
 
 ```
 
