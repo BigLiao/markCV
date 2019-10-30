@@ -1,6 +1,6 @@
 {
   "name": "mark-cv",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Beautiful online resume using markdown",
   "repository": "https://github.com/BigLiao/markCV/",
   "homepage": "https://github.com/BigLiao/markCV/",
@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "node lib/dev/index",
     "build": "node lib/build/index",
-    "publish": "node lib/publish/index",
+    "deploy": "node lib/publish/index",
     "serve": "node lib/serve/index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
