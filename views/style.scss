@@ -11,8 +11,9 @@ $h6-font-size:                $font-size-base;
 
 
 h1 {
-  margin-bottom: 0.7em;
-  border-bottom: 1px solid #333333;
+  padding-bottom: 0.2em;
+  margin-bottom: 0.4em;
+  border-bottom: 1px solid #bfbebe;
 }
 h2 {
   margin-bottom: 0.6em;
@@ -49,7 +50,7 @@ h1:not(:first-child) {
     background-color: #f1edeee1;
   }
   .box {
-    border: 4px solid #666;
+    // border: 4px solid #666;
     padding: 1.6em;
 
   }
