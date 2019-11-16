@@ -46,6 +46,11 @@ npm run build # 打包
 git clone https://github.com/BigLiao/markCV.git
 
 docker run --rm -v markCV:/markCV -w /markCV -p 3000:3000 -it node:12.10.0 bash
+
+npm install
+
+npm run dev
+npm run build
 ```
 
 ### 方法三：安装node环境
