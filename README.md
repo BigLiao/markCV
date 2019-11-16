@@ -3,7 +3,7 @@
 
 [示例](https://bigliao.github.io/markCV/)
 
-## 特点
+## 1. 特点
 
 ### 使用 Markdown 写简历
 
@@ -16,9 +16,34 @@ Markdown 作为一种通用文本格式就可以很好地解决这个问题。�
 
 简历应当方便传播，在线简历就可以很好做到这一点。别人问你要简历的时候，直接一串网址丢过去，无论微信、QQ 或者什么地方都可以直接打开，根本不用担心格式问题。本工具已经调整好了打印样式，直接打印网页就可以，可以说是非常方便。
 
-## 使用方法
+## 2. 使用方法
 
-### 安装
+### 方法一：直接使用Docker镜像
+
+pull镜像，准备一个文件夹，然后将简历文件、配置文件、输出目录挂载到容器内部：
+
+```shell script
+docker pull saodd/mark-cv
+
+docker run --rm -v 你的简历文件路径:/markCV/markdown/resume-template.md \ 
+    -v 你的配置文件路径:/markCV/_config.yml \
+    -v 你的输出路径:/markCV/dist \
+    -p 3000:3000 -it saodd/mark-cv bash
+
+npm run dev # 开发、编写简历
+npm run build # 打包
+npm run deploy # 发布到 GitHub Pages
+```
+
+### 方法二：自定义Docker容器
+
+使用`node`镜像运行本项目即可，目前`node:12.10.0`试用正常。
+
+```shell script
+docker run --rm -v 你的项目路径:/markCV -w /markCV -p 3000:3000 -it node:12.10.0 bash
+```
+
+### 方法三：安装node环境
 本工具基于 [Node.js](https://nodejs.org) 开发，需要有 `Node.js` 开发环境。
 
 #### 使用 npm 安装
@@ -82,7 +107,7 @@ npm run deploy # 发布到 GitHub Pages
 
 ```
 
-## 配置
+## 3. 配置
 需要在根目录里放一个 `_config.yml` 配置文件，内容如下
 ```yml
 # 网页的 Title，在浏览器标签页里可以看到
