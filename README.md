@@ -22,25 +22,30 @@ Markdown 作为一种通用文本格式就可以很好地解决这个问题。�
 
 pull镜像，准备一个文件夹，然后将简历文件、配置文件、输出目录挂载到容器内部：
 
-```shell script
-docker pull saodd/mark-cv
+```bash
+# 新建简历文件夹
+mkdir my-resume && cd mkdir my-resume
 
-docker run --rm -v 你的简历文件路径:/markCV/markdown/resume-template.md \ 
-    -v 你的配置文件路径:/markCV/_config.yml \
-    -v 你的输出路径:/markCV/dist \
-    -p 3000:3000 -it saodd/mark-cv bash
+docker pull bigliao/mark-cv
+
+# 运行 docker
+# 注意 $(pwd) 是 linux 系统中的当前目录。windows 系统中应使用 ${pwd}
+docker run --rm \
+    -v $(pwd):/markCV/app \
+    -p 3000:3000 -it bigliao/mark-cv bash
 
 npm run dev # 开发、编写简历
 npm run build # 打包
-npm run deploy # 发布到 GitHub Pages
 ```
 
 ### 方法二：自定义Docker容器
 
 使用`node`镜像运行本项目即可，目前`node:12.10.0`试用正常。
 
-```shell script
-docker run --rm -v 你的项目路径:/markCV -w /markCV -p 3000:3000 -it node:12.10.0 bash
+```bash
+git clone https://github.com/BigLiao/markCV.git
+
+docker run --rm -v markCV:/markCV -w /markCV -p 3000:3000 -it node:12.10.0 bash
 ```
 
 ### 方法三：安装node环境

@@ -12,6 +12,7 @@ $h6-font-size:                $font-size-base;
 
 h1 {
   margin-bottom: 0.7em;
+  border-bottom: 1px solid #333333;
 }
 h2 {
   margin-bottom: 0.6em;
@@ -161,9 +162,12 @@ h1:not(:first-child) {
   }
 
   h1, h2 {
-      page-break-before: avoid;
       page-break-after: avoid;
       page-break-inside: avoid;
+  }
+
+  h1 + h2 {
+    page-break-before: avoid;
   }
 
   h1, h2, h3, h4, h5, h6,
@@ -173,7 +177,7 @@ h1:not(:first-child) {
   }
 
   body {
-      padding: 60px 30px;
+      padding: 30px 25px;
       background-color: white;
       color: black;
   }
