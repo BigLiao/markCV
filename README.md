@@ -130,4 +130,14 @@ publicPath: '/markCV/'
 
 # 简历 markdown 地址，相对本配置文件的。必须
 resumePath: './markdown/resume-template.md'
+
+# 是否展示头部基本信息。true 的话要设置下面的 headerInfo。
+showHeader: true
+headerInfo:
+  # 头像，相对本配置文件路径，或者 URL
+  # photo: 'https://avatars1.githubusercontent.com/u/22113206?s=460&v=4'
+  photo: './markdown/avatar.jpeg'
+  name: 'bigLiao'
+  phone: '151****1111'
+  email: 'bigliao@markcv.com'
 ```
