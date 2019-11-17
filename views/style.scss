@@ -3,20 +3,26 @@
 $font-size-base:              1rem;
 $h1-font-size:                $font-size-base * 2.25;
 $h2-font-size:                $font-size-base * 1.75;
-$h3-font-size:                $font-size-base * 1.5;
-$h4-font-size:                $font-size-base * 1.25;
-$h5-font-size:                $font-size-base * 1.1;
+$h3-font-size:                $font-size-base * 1.4;
+$h4-font-size:                $font-size-base * 1.1;
+$h5-font-size:                $font-size-base * 1;
 $h6-font-size:                $font-size-base;
 @import '~bootstrap/scss/bootstrap';
 
 
 h1 {
   padding-bottom: 0.2em;
-  margin-bottom: 0.4em;
+  margin-bottom: 0.6em;
   border-bottom: 1px solid #bfbebe;
 }
 h2 {
   margin-bottom: 0.6em;
+}
+h3 {
+  background-color: rgba(0,0,0,0.05);
+  padding: 0 0.5em;
+  line-height: 1.4em;
+  border-radius: 4px;
 }
 h1:not(:first-child) {
   margin-top: 2em;
