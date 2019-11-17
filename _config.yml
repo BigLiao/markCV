@@ -1,3 +1,10 @@
 title: 'markCV - Beautiful online resume' # title in broswer
 publicPath: '/markCV/'
 resumePath: './markdown/resume-template.md'
+showHeader: true
+headerInfo:
+  # photo: 'https://avatars1.githubusercontent.com/u/22113206?s=460&v=4'
+  photo: './markdown/avatar.jpeg'
+  name: 'bigLiao'
+  phone: '151****1111'
+  email: 'bigliao@markcv.com'

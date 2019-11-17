@@ -13,6 +13,18 @@
       <div class="pin pin-right"></div>
       <div class="paper-content">
         <div class="box">
+          <% if (showHeader) { %>
+          <div class="header-info">
+            <div class="photo">
+              <img src="<%= headerInfo.photo %>" alt="photo" width="100%" height="auto">
+            </div>
+            <div class="name"><%= headerInfo.name %></div>
+            <div class="contact">
+              <div class="contact-item"><%= headerInfo.phone %></div>
+              <div class="contact-item"><%= headerInfo.email %></div>
+            </div>
+          </div>
+          <% } %>
           <div id="markdown-body">
             <%- markdown %>
           </div>
