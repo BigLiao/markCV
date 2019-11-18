@@ -6,3 +6,6 @@ dist/
 docs/
 package-lock.json
 .idea
+Dockerfile
+.dockerignore
+.editorconfig
