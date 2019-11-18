@@ -209,11 +209,25 @@ h1:not(:first-child) {
   padding-top: 20px;
   min-height: 3em;
   .photo {
-    width: 120px;
+    width: 100px;
     margin: 0 auto;
-    position: absolute;
-    right: 20px;
-    top: 0;
+    position: static;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #bfbebe;
+    overflow: hidden;
+  }
+  @include media-breakpoint-up(md) {
+    .photo {
+      width: 120px;
+      margin: 0 auto;
+      position: absolute;
+      right: 20px;
+      top: 0;
+      border-radius: 0;
+      height: auto;
+      border: none;
+    }
   }
   .name {
     font-size: 1.5em;
