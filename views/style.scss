@@ -229,6 +229,18 @@ h1:not(:first-child) {
       border: none;
     }
   }
+  @media print {
+    .photo {
+      width: 120px;
+      margin: 0 auto;
+      position: absolute;
+      right: 20px;
+      top: 0;
+      border-radius: 0;
+      height: auto;
+      border: none;
+    }
+  }
   .name {
     font-size: 1.5em;
     font-weight: bold;

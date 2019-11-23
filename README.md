@@ -24,7 +24,7 @@ pull镜像，准备一个文件夹，然后将简历文件、配置文件、输�
 
 ```bash
 # 新建简历文件夹
-mkdir my-resume && cd mkdir my-resume
+mkdir my-resume && cd my-resume
 
 docker pull bigliao/mark-cv
 
@@ -59,7 +59,7 @@ npm run build
 #### 使用 npm 安装
 ```bash
 # 先建一个文件夹存放简历
-mkdir my-resume && cd mkdir my-resume
+mkdir my-resume && cd my-resume
 
 # 初始化 npm
 npm init -y
