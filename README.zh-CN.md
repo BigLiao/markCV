@@ -29,16 +29,30 @@
 npm install -g mark-cv
 ```
 
+使用 pnpm 全局安装：
+
+```bash
+pnpm add -g mark-cv
+```
+
 或者直接用 `npx`：
 
 ```bash
 npx mark-cv --help
 ```
 
+```bash
+pnpm dlx mark-cv --help
+```
+
 如果需要导出 PDF，还需要安装一次 Playwright 浏览器：
 
 ```bash
 npx playwright install chromium
+```
+
+```bash
+pnpm exec playwright install chromium
 ```
 
 ## 快速开始

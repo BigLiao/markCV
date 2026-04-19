@@ -542,7 +542,7 @@ PDF 导出基于浏览器打印能力实现。
 - Node.js 20 LTS+
 - TypeScript 5.x
 - ESM 优先
-- `npm` 作为默认包管理器
+- `pnpm` 作为默认包管理器
 
 ### 9.2 CLI 与构建
 
@@ -587,4 +587,3 @@ PDF 导出基于浏览器打印能力实现。
 - 正文布局 DSL
 - RenderCV 式重 schema
 - 主题专属 frontmatter 配置系统
-

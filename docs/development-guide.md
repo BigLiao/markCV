@@ -5,27 +5,27 @@ This document is for contributors and maintainers. User-facing installation and 
 ## Environment
 
 - Node.js 20+
-- npm
+- pnpm
 - Playwright browser for PDF export
 
 Install dependencies:
 
 ```bash
-npm install
+pnpm install
 ```
 
 Install the PDF browser once:
 
 ```bash
-npx playwright install chromium
+pnpm exec playwright install chromium
 ```
 
 ## Core Commands
 
 ```bash
-npm run check
-npm test
-npm run build
+pnpm run check
+pnpm test
+pnpm run build
 ```
 
 Run the CLI locally:
@@ -97,7 +97,7 @@ Related design docs:
 Build the demo site locally:
 
 ```bash
-npm run build:site
+pnpm run build:site
 ```
 
 This generates `site/index.html` plus one static HTML build for every `examples/**/*.md` file across all built-in themes.
@@ -120,9 +120,9 @@ Project Pages URLs usually look like `https://<owner>.github.io/<repo>/`.
 ### Publish a release
 
 ```bash
-npm version patch
-npm version minor
-npm version major
+pnpm version patch
+pnpm version minor
+pnpm version major
 
 git push
 git push --tags

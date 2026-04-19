@@ -29,16 +29,30 @@ Install from npm:
 npm install -g mark-cv
 ```
 
+Install with pnpm:
+
+```bash
+pnpm add -g mark-cv
+```
+
 Or run without a global install:
 
 ```bash
 npx mark-cv --help
 ```
 
+```bash
+pnpm dlx mark-cv --help
+```
+
 If you want PDF export, install the Playwright browser once:
 
 ```bash
 npx playwright install chromium
+```
+
+```bash
+pnpm exec playwright install chromium
 ```
 
 ## Quick Start

@@ -20,6 +20,7 @@
   "engines": {
     "node": ">=20"
   },
+  "packageManager": "pnpm@10.18.2",
   "files": [
     "dist",
     "themes",
@@ -31,11 +32,11 @@
   },
   "scripts": {
     "build": "tsup",
-    "build:site": "npm run build && tsx scripts/build-pages.ts",
+    "build:site": "pnpm run build && tsx scripts/build-pages.ts",
     "check": "tsc --noEmit",
     "test": "vitest run",
     "dev": "tsx src/cli/index.ts",
-    "prepack": "npm run build"
+    "prepack": "pnpm run build"
   },
   "dependencies": {
     "@types/nunjucks": "^3.2.6",

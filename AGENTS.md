@@ -55,15 +55,15 @@ resume.md
 环境：
 
 - Node.js 20+
-- `npm install`
-- PDF 需要：`npx playwright install chromium`
+- `pnpm install`
+- PDF 需要：`pnpm exec playwright install chromium`
 
 常用命令：
 
 ```bash
-npm run check
-npm test
-npm run build
+pnpm run check
+pnpm test
+pnpm run build
 
 node dist/cli.js init ./my-resume
 node dist/cli.js dev -i ./my-resume/resume.md --open
@@ -91,9 +91,9 @@ node dist/cli.js dev -i ./examples/legacy/resume.md -t legacy
 发布：
 
 ```bash
-npm version patch
-npm version minor
-npm version major
+pnpm version patch
+pnpm version minor
+pnpm version major
 git push && git push --tags
 ```
 
