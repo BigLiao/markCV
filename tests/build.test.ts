@@ -129,4 +129,31 @@ describe("checkTheme", () => {
       issues: []
     });
   });
+
+  it("builds a local theme without screen.css or print.css by using the default theme stylesheets", async () => {
+    const workspace = await createWorkspaceFromFixture();
+    const themeDirectory = path.join(workspace, "paper-note");
+    const outputPath = path.join(workspace, "dist-paper-note");
+
+    await createThemeScaffold("paper-note", themeDirectory);
+
+    const result = await buildResume({
+      cwd: workspace,
+      input: path.join(workspace, "resume.md"),
+      output: outputPath,
+      theme: themeDirectory
+    });
+    const screenCss = await fs.readFile(path.join(outputPath, "assets", "theme", "screen.css"), "utf8");
+    const printCss = await fs.readFile(path.join(outputPath, "assets", "theme", "print.css"), "utf8");
+
+    expect(result.theme.name).toBe("paper-note");
+    expect(result.theme.screenCssPath).toBeUndefined();
+    expect(result.theme.printCssPath).toBeUndefined();
+    expect(screenCss).toContain("--mcv-page-width");
+    expect(screenCss).toContain(".mcv-content h2");
+    expect(printCss).toContain("@page");
+    expect(printCss).toContain(".mcv-content h1");
+    expect(printCss).toContain("break-after: avoid-page");
+    expect(printCss).toContain(".mcv-content h4 + *");
+  });
 });

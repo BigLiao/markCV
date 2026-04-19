@@ -53,17 +53,11 @@ export async function resolveTheme(themeInput?: string): Promise<ResolvedTheme> 
   const templatePath = path.join(themeDirectory, "template.njk");
   const screenCssPath = path.join(themeDirectory, "screen.css");
   const printCssPath = path.join(themeDirectory, "print.css");
+  const hasScreenCss = await fileExists(screenCssPath);
+  const hasPrintCss = await fileExists(printCssPath);
 
   if (!(await fileExists(templatePath))) {
     throw new Error(`Missing theme template: ${templatePath}`);
-  }
-
-  if (!(await fileExists(screenCssPath))) {
-    throw new Error(`Missing theme stylesheet: ${screenCssPath}`);
-  }
-
-  if (!(await fileExists(printCssPath))) {
-    throw new Error(`Missing theme print stylesheet: ${printCssPath}`);
   }
 
   const assetsDirectory = path.join(themeDirectory, "assets");
@@ -72,8 +66,8 @@ export async function resolveTheme(themeInput?: string): Promise<ResolvedTheme> 
     ...meta,
     directory: themeDirectory,
     templatePath,
-    screenCssPath,
-    printCssPath,
+    screenCssPath: hasScreenCss ? screenCssPath : undefined,
+    printCssPath: hasPrintCss ? printCssPath : undefined,
     assetsDirectory: (await directoryExists(assetsDirectory)) ? assetsDirectory : undefined,
     source
   };
@@ -94,21 +88,9 @@ export async function checkTheme(themeInput: string): Promise<ThemeCheckResult> 
   const theme = await resolveTheme(themeInput);
   const issues: string[] = [];
   const template = await fs.readFile(theme.templatePath, "utf8");
-  const screenCss = await fs.readFile(theme.screenCssPath, "utf8");
-  const printCss = await fs.readFile(theme.printCssPath, "utf8");
 
   if (!/\{\{\s*contentHtml(?:\s*\|\s*safe)?\s*\}\}/.test(template)) {
     issues.push("template.njk must render contentHtml.");
-  }
-
-  if (!/@page\s*\{[^}]*size\s*:\s*A4/i.test(printCss)) {
-    issues.push("print.css must include an A4 @page size rule.");
-  }
-
-  for (const selector of [".mcv-page", ".mcv-header", ".mcv-content"]) {
-    if (!screenCss.includes(selector)) {
-      issues.push(`screen.css should style ${selector}.`);
-    }
   }
 
   return {
@@ -168,16 +150,6 @@ export async function createThemeScaffold(themeName: string, targetDirectory: st
   </body>
 </html>
 `,
-    "utf8"
-  );
-  await fs.writeFile(
-    path.join(themeDirectory, "screen.css"),
-    `.mcv {\n  color: #1f2430;\n  font-family: "Avenir Next", "PingFang SC", sans-serif;\n  line-height: 1.6;\n}\n\n* {\n  box-sizing: border-box;\n}\n\nhtml,\nbody {\n  margin: 0;\n  background: #f2f4f8;\n}\n\nbody {\n  padding: 32px 12px;\n}\n\n.mcv-page {\n  width: min(100%, 210mm);\n  min-height: 297mm;\n  margin: 0 auto;\n  padding: 16mm;\n  background: #ffffff;\n  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.1);\n}\n\n.mcv-header {\n  display: grid;\n  grid-template-columns: minmax(0, 1fr) auto;\n  gap: 20px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #d6dbe5;\n}\n\n.mcv-name {\n  margin: 0;\n  font-size: 32px;\n}\n\n.mcv-headline,\n.mcv-summary {\n  color: #5f6676;\n}\n\n.mcv-headline {\n  margin: 8px 0 0;\n}\n\n.mcv-summary {\n  margin: 12px 0 0;\n}\n\n.mcv-header-avatar img {\n  width: 104px;\n  height: 104px;\n  object-fit: cover;\n  border-radius: 16px;\n}\n\n.mcv-content {\n  margin-top: 24px;\n}\n\n.mcv-content img {\n  max-width: 100%;\n}\n`,
-    "utf8"
-  );
-  await fs.writeFile(
-    path.join(themeDirectory, "print.css"),
-    `@page {\n  size: A4;\n  margin: 0;\n}\n\n.mcv-page {\n  margin: 0;\n  box-shadow: none;\n}\n`,
     "utf8"
   );
 

@@ -283,8 +283,6 @@ body {
 /* --- Page Break Rules --- */
 
 .mcv-header,
-.mcv-content h2,
-.mcv-content h3,
 .mcv-content table,
 .mcv-content blockquote,
 .mcv-content pre,
@@ -292,12 +290,17 @@ body {
   break-inside: avoid;
 }
 
-.mcv-content h1 {
-  break-before: page;
-}
-
 .mcv-content h1,
 .mcv-content h2,
-.mcv-content h3 {
+.mcv-content h3,
+.mcv-content h4 {
+  break-inside: avoid;
   break-after: avoid;
+}
+
+.mcv-content h1 + *,
+.mcv-content h2 + *,
+.mcv-content h3 + *,
+.mcv-content h4 + * {
+  break-before: avoid;
 }

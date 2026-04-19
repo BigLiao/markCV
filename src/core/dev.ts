@@ -11,6 +11,7 @@ import { AssetManager } from "./assets.js";
 import { loadResume } from "./frontmatter.js";
 import { renderMarkdown } from "./markdown.js";
 import { renderDocument } from "./render.js";
+import { getPrintCss, getScreenCss } from "./styles.js";
 import { resolveTheme } from "./theme.js";
 
 const reloadClient = `
@@ -69,8 +70,8 @@ export async function startDevServer(options: DevCommandOptions = {}): Promise<v
   const clients = new Set<http.ServerResponse>();
   let currentHtml = "<!doctype html><html><body><p>Loading…</p></body></html>";
   let currentThemeDirectory = "";
-  let currentThemeScreenCssPath = "";
-  let currentThemePrintCssPath = "";
+  let currentThemeScreenCss = "";
+  let currentThemePrintCss = "";
   let currentThemeAssetsDirectory = "";
   let currentAssetManager = new AssetManager(cwd);
 
@@ -90,8 +91,8 @@ export async function startDevServer(options: DevCommandOptions = {}): Promise<v
 
     currentHtml = html.replace("</body>", `${reloadClient}</body>`);
     currentThemeDirectory = theme.directory;
-    currentThemeScreenCssPath = theme.screenCssPath;
-    currentThemePrintCssPath = theme.printCssPath;
+    currentThemeScreenCss = await getScreenCss(theme);
+    currentThemePrintCss = await getPrintCss(theme);
     currentThemeAssetsDirectory = theme.assetsDirectory || "";
     currentAssetManager = assetManager;
     watcher.add(currentThemeDirectory);
@@ -155,12 +156,14 @@ export async function startDevServer(options: DevCommandOptions = {}): Promise<v
     };
 
     if (pathname === "/__markcv/theme/screen.css") {
-      await serveFile(currentThemeScreenCssPath);
+      response.writeHead(200, { "content-type": "text/css; charset=utf-8" });
+      response.end(currentThemeScreenCss);
       return;
     }
 
     if (pathname === "/__markcv/theme/print.css") {
-      await serveFile(currentThemePrintCssPath);
+      response.writeHead(200, { "content-type": "text/css; charset=utf-8" });
+      response.end(currentThemePrintCss);
       return;
     }
 

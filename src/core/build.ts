@@ -3,11 +3,12 @@ import path from "node:path";
 import fs from "fs-extra";
 
 import { DEFAULT_INPUT } from "../constants.js";
-import type { BuildResult, CommonCommandOptions } from "../types.js";
+import type { BuildResult, CommonCommandOptions, ResolvedTheme } from "../types.js";
 import { AssetManager } from "./assets.js";
 import { loadResume } from "./frontmatter.js";
 import { renderMarkdown } from "./markdown.js";
 import { renderDocument } from "./render.js";
+import { getPrintCss, getScreenCss } from "./styles.js";
 import { resolveTheme } from "./theme.js";
 
 type ResolvedOutput = {
@@ -54,15 +55,13 @@ function resolveThemeAssetBuildUrl(reference: string): string {
   throw new Error(`Unsupported theme asset reference: ${reference}`);
 }
 
-async function copyThemeAssets(themeDirectory: string, outputDirectory: string): Promise<void> {
+async function copyThemeAssets(theme: ResolvedTheme, outputDirectory: string): Promise<void> {
   await fs.ensureDir(path.join(outputDirectory, "assets", "theme"));
-  await fs.copyFile(path.join(themeDirectory, "screen.css"), path.join(outputDirectory, "assets", "theme", "screen.css"));
-  await fs.copyFile(path.join(themeDirectory, "print.css"), path.join(outputDirectory, "assets", "theme", "print.css"));
+  await fs.writeFile(path.join(outputDirectory, "assets", "theme", "screen.css"), await getScreenCss(theme), "utf8");
+  await fs.writeFile(path.join(outputDirectory, "assets", "theme", "print.css"), await getPrintCss(theme), "utf8");
 
-  const assetsDirectory = path.join(themeDirectory, "assets");
-
-  if (await fs.pathExists(assetsDirectory)) {
-    await fs.copy(assetsDirectory, path.join(outputDirectory, "assets", "theme", "assets"));
+  if (theme.assetsDirectory) {
+    await fs.copy(theme.assetsDirectory, path.join(outputDirectory, "assets", "theme", "assets"));
   }
 }
 
@@ -86,7 +85,7 @@ export async function buildResume(options: CommonCommandOptions = {}): Promise<B
 
   await fs.ensureDir(output.outputDirectory);
   await fs.remove(path.join(output.outputDirectory, "assets"));
-  await copyThemeAssets(theme.directory, output.outputDirectory);
+  await copyThemeAssets(theme, output.outputDirectory);
   await assetManager.copyBuildAssets(output.outputDirectory);
   await fs.writeFile(htmlPath, html, "utf8");
 
