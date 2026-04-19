@@ -1,0 +1,526 @@
+/* ============================================================
+   Antique Book Theme for MarkCV
+   羊皮纸纹理 · 古典衬线 · 首字装饰 · 维多利亚花纹 · 书页效果
+   ============================================================ */
+
+/* --- Keyframe Animations --- */
+
+@keyframes book-page-curl {
+  0%, 100% { transform: perspective(800px) rotateY(0deg); }
+  50% { transform: perspective(800px) rotateY(-0.5deg); }
+}
+
+@keyframes book-glow {
+  0%, 100% { box-shadow: 0 4px 20px rgba(101, 67, 33, 0.15), inset 0 0 60px rgba(139, 109, 63, 0.04); }
+  50% { box-shadow: 0 6px 30px rgba(101, 67, 33, 0.2), inset 0 0 80px rgba(139, 109, 63, 0.06); }
+}
+
+@keyframes quill-sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+/* --- Theme Variables --- */
+
+.mcv {
+  --mcv-page-width: 210mm;
+  --mcv-page-min-height: 297mm;
+  --mcv-page-padding: 20mm;
+  --mcv-font-body: "Palatino Linotype", "Book Antiqua", Palatino, "Songti SC", "SimSun", serif;
+  --mcv-font-heading: "Cinzel", "Playfair Display", "Palatino Linotype", "STKaiti", serif;
+  --mcv-font-decorative: "Cinzel Decorative", "Playfair Display SC", "STKaiti", serif;
+  --mcv-color-bg: #d4c5a9;
+  --mcv-color-parchment: #f4edd3;
+  --mcv-color-parchment-dark: #e8dcc0;
+  --mcv-color-ink: #2c1810;
+  --mcv-color-ink-light: #4a3728;
+  --mcv-color-muted: #7a6652;
+  --mcv-color-accent: #8b1a1a;
+  --mcv-color-gold: #b8860b;
+  --mcv-color-gold-light: #daa520;
+  --mcv-color-border: #a0895e;
+  --mcv-color-border-light: #c4b68e;
+  color: var(--mcv-color-ink);
+  font-family: var(--mcv-font-body);
+  line-height: 1.7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(139, 109, 63, 0.12), transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(101, 67, 33, 0.08), transparent 60%),
+    var(--mcv-color-bg);
+}
+
+body {
+  padding: 40px 16px;
+}
+
+/* --- Shell & Page --- */
+
+.mcv-shell {
+  width: min(100%, 280mm);
+  margin: 0 auto;
+}
+
+.mcv-page-wrap {
+  position: relative;
+  max-width: var(--mcv-page-width);
+  margin: 0 auto;
+}
+
+/* Book Spine */
+.book-spine {
+  position: absolute;
+  left: -14px;
+  top: 8px;
+  bottom: 8px;
+  width: 14px;
+  background:
+    linear-gradient(90deg, #6b4423, #8b6d3f 30%, #7a5c2e 70%, #5c3a1e);
+  border-radius: 4px 0 0 4px;
+  box-shadow:
+    -3px 0 8px rgba(0, 0, 0, 0.3),
+    inset -2px 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.book-spine::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg,
+    transparent 5%,
+    var(--mcv-color-gold) 10%,
+    transparent 15%,
+    transparent 85%,
+    var(--mcv-color-gold) 90%,
+    transparent 95%
+  );
+}
+
+.mcv-page {
+  width: min(100%, var(--mcv-page-width));
+  min-height: var(--mcv-page-min-height);
+  margin: 0 auto;
+  padding: var(--mcv-page-padding);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+    linear-gradient(168deg, var(--mcv-color-parchment) 0%, var(--mcv-color-parchment-dark) 40%, var(--mcv-color-parchment) 100%);
+  box-shadow:
+    0 4px 20px rgba(101, 67, 33, 0.15),
+    3px 3px 8px rgba(0, 0, 0, 0.1),
+    inset 0 0 60px rgba(139, 109, 63, 0.04);
+  animation: book-glow 6s ease-in-out infinite;
+  position: relative;
+}
+
+/* Stained Edges */
+.mcv-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(101, 67, 33, 0.12), transparent 30%),
+    radial-gradient(ellipse at 100% 100%, rgba(101, 67, 33, 0.08), transparent 25%),
+    radial-gradient(ellipse at 50% 0%, rgba(139, 109, 63, 0.04), transparent 40%);
+}
+
+.mcv-pin, .mcv-note {
+  display: none;
+}
+
+/* --- Ornaments --- */
+
+.book-ornament {
+  text-align: center;
+  color: var(--mcv-color-gold);
+  font-size: 18px;
+  letter-spacing: 4px;
+  line-height: 1;
+  user-select: none;
+  position: relative;
+  padding: 12px 0;
+}
+
+.book-ornament-top::before {
+  content: "❦ ─── ✦ ─── ❦";
+}
+
+.book-ornament-bottom::before {
+  content: "─── ✿ ───";
+  font-size: 14px;
+}
+
+.book-ornament::after {
+  content: "";
+  display: block;
+  width: 60%;
+  margin: 10px auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--mcv-color-border-light), transparent);
+}
+
+.book-ornament-bottom::after {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+/* --- Header --- */
+
+.mcv-header {
+  display: block;
+  text-align: center;
+  padding: 16px 0 24px;
+  border-bottom: none;
+  position: relative;
+}
+
+.mcv-header::after {
+  content: "";
+  display: block;
+  width: 80%;
+  margin: 20px auto 0;
+  height: 2px;
+  background:
+    linear-gradient(90deg, transparent, var(--mcv-color-gold), transparent);
+}
+
+.mcv-header-main {
+  min-width: 0;
+}
+
+/* Avatar with ornate frame */
+.book-avatar-frame {
+  display: inline-block;
+  position: relative;
+  padding: 6px;
+  background: linear-gradient(135deg, var(--mcv-color-gold), var(--mcv-color-gold-light), var(--mcv-color-gold));
+  border-radius: 50%;
+  box-shadow:
+    0 2px 12px rgba(184, 134, 11, 0.3),
+    inset 0 1px 3px rgba(255, 255, 255, 0.3);
+}
+
+.book-avatar-frame img {
+  width: 108px;
+  height: 108px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--mcv-color-parchment);
+  filter: sepia(15%) contrast(1.05);
+}
+
+.mcv-header-avatar {
+  margin-bottom: 16px;
+}
+
+.mcv-name {
+  margin: 0;
+  font-family: var(--mcv-font-decorative);
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  color: var(--mcv-color-ink);
+  text-shadow: 1px 1px 0 rgba(184, 134, 11, 0.15);
+}
+
+.mcv-headline {
+  margin: 10px 0 0;
+  font-family: var(--mcv-font-heading);
+  font-size: 16px;
+  font-style: italic;
+  color: var(--mcv-color-muted);
+  letter-spacing: 0.15em;
+}
+
+.mcv-summary {
+  margin: 14px auto 0;
+  max-width: 55ch;
+  color: var(--mcv-color-ink-light);
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* --- Contacts --- */
+
+.mcv-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 20px;
+  list-style: none;
+  margin: 20px 0 0;
+  padding: 0;
+  font-size: 13px;
+}
+
+.mcv-contact-item {
+  display: inline-flex;
+  gap: 6px;
+  align-items: baseline;
+  color: var(--mcv-color-muted);
+}
+
+.mcv-contact-item + .mcv-contact-item::before {
+  content: "·";
+  margin-right: 6px;
+  color: var(--mcv-color-gold);
+  font-weight: bold;
+}
+
+.mcv-contact-label {
+  font-weight: 600;
+  color: var(--mcv-color-ink-light);
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+.mcv-contact-link {
+  color: var(--mcv-color-accent);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--mcv-color-border-light);
+  transition: color 0.2s;
+}
+
+.mcv-contact-link:hover {
+  color: var(--mcv-color-gold);
+}
+
+/* --- Content --- */
+
+.mcv-content {
+  margin-top: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.mcv-content :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--mcv-font-heading);
+  color: var(--mcv-color-ink);
+}
+
+.mcv-content h2 {
+  margin: 32px 0 14px;
+  padding-bottom: 8px;
+  font-size: 22px;
+  text-align: center;
+  font-variant: small-caps;
+  letter-spacing: 0.12em;
+  position: relative;
+}
+
+.mcv-content h2::after {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 1px;
+  margin: 8px auto 0;
+  background: linear-gradient(90deg, transparent, var(--mcv-color-border), transparent);
+}
+
+.mcv-content h3 {
+  margin: 22px 0 8px;
+  font-size: 17px;
+  color: var(--mcv-color-accent);
+  font-style: italic;
+}
+
+/* Drop Cap Effect for first paragraph */
+.mcv-content h2 + p::first-letter {
+  float: left;
+  font-family: var(--mcv-font-decorative);
+  font-size: 3.2em;
+  line-height: 0.8;
+  padding-right: 8px;
+  padding-top: 4px;
+  color: var(--mcv-color-accent);
+  font-weight: 700;
+}
+
+.mcv-content p,
+.mcv-content li,
+.mcv-content blockquote,
+.mcv-content td,
+.mcv-content th {
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.mcv-content ul {
+  padding-left: 20px;
+  list-style: none;
+}
+
+.mcv-content ul li::before {
+  content: "❧";
+  color: var(--mcv-color-gold);
+  display: inline-block;
+  width: 1.2em;
+  margin-left: -1.2em;
+}
+
+.mcv-content ol {
+  padding-left: 20px;
+}
+
+.mcv-content a {
+  color: var(--mcv-color-accent);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--mcv-color-border);
+  transition: color 0.2s;
+}
+
+.mcv-content a:hover {
+  color: var(--mcv-color-gold);
+}
+
+.mcv-content img {
+  max-width: 100%;
+  border: 3px solid var(--mcv-color-border-light);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mcv-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+
+.mcv-content th {
+  padding: 10px 12px;
+  text-align: left;
+  font-family: var(--mcv-font-heading);
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+  color: var(--mcv-color-ink);
+  background: rgba(184, 134, 11, 0.06);
+  border-bottom: 2px solid var(--mcv-color-border);
+}
+
+.mcv-content td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--mcv-color-border-light);
+}
+
+.mcv-content blockquote {
+  margin: 18px 24px;
+  padding: 14px 20px;
+  border-left: 3px double var(--mcv-color-gold);
+  background: rgba(184, 134, 11, 0.03);
+  font-style: italic;
+  color: var(--mcv-color-ink-light);
+  position: relative;
+}
+
+.mcv-content blockquote::before {
+  content: "\201C";
+  position: absolute;
+  top: -8px;
+  left: 8px;
+  font-size: 40px;
+  color: var(--mcv-color-gold);
+  font-family: var(--mcv-font-decorative);
+  opacity: 0.4;
+  line-height: 1;
+}
+
+.mcv-content pre {
+  overflow: auto;
+  padding: 14px 16px;
+  border-radius: 0;
+  background: var(--mcv-color-parchment-dark);
+  color: var(--mcv-color-ink);
+  border: 1px solid var(--mcv-color-border-light);
+  font-size: 13px;
+}
+
+.mcv-content code {
+  font-size: 13px;
+  color: var(--mcv-color-accent);
+  background: rgba(139, 26, 26, 0.04);
+  padding: 1px 4px;
+}
+
+.mcv-content pre code {
+  color: inherit;
+  background: none;
+  padding: 0;
+}
+
+.mcv-content hr {
+  margin: 28px auto;
+  border: 0;
+  width: 60%;
+  text-align: center;
+  height: auto;
+  line-height: 1;
+  overflow: visible;
+}
+
+.mcv-content hr::after {
+  content: "§";
+  display: inline-block;
+  padding: 0 16px;
+  background: var(--mcv-color-parchment);
+  color: var(--mcv-color-gold);
+  font-size: 18px;
+  position: relative;
+}
+
+.mcv-content hr::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--mcv-color-border), transparent);
+  position: absolute;
+  top: 50%;
+}
+
+/* --- Footer --- */
+
+.mcv-footer {
+  margin: 28px auto 12px;
+  text-align: center;
+  color: var(--mcv-color-muted);
+  font-size: 13px;
+  font-style: italic;
+}
+
+.mcv-footer-link {
+  color: var(--mcv-color-accent);
+  text-decoration: none;
+}
+
+/* --- Responsive --- */
+
+@media (max-width: 900px) {
+  body {
+    padding: 0;
+  }
+
+  .mcv-page {
+    width: 100%;
+    min-height: auto;
+    box-shadow: none;
+  }
+
+  .book-spine {
+    display: none;
+  }
+
+  .mcv-footer {
+    margin-top: 16px;
+  }
+}

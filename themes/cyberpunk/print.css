@@ -1,0 +1,42 @@
+@page {
+  size: A4;
+  margin: 0;
+}
+
+html,
+body {
+  margin: 0;
+  background: #0d0d1a;
+}
+
+.mcv-page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0;
+  box-shadow: none;
+  animation: none;
+}
+
+.cyber-grid,
+.cyber-scanline,
+.cyber-corner,
+.mcv-note,
+.mcv-footer,
+.mcv-pin {
+  display: none !important;
+}
+
+.mcv-name::before,
+.mcv-name::after {
+  display: none;
+}
+
+.mcv-header,
+.mcv-content h2,
+.mcv-content h3,
+.mcv-content table,
+.mcv-content blockquote,
+.mcv-content pre,
+.mcv-content img {
+  break-inside: avoid;
+}

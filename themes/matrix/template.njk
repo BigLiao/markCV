@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="{{ document.lang }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="MarkCV 2.0" />
+    <title>{{ document.title }}</title>
+    <link rel="stylesheet" href="{{ helpers.themeAsset('screen.css') }}" media="screen" />
+    <link rel="stylesheet" href="{{ helpers.themeAsset('print.css') }}" media="print" />
+  </head>
+  <body class="mcv theme-{{ theme.name }}">
+    <canvas class="matrix-rain" aria-hidden="true"></canvas>
+    <div class="matrix-crt" aria-hidden="true"></div>
+    <main class="mcv-shell">
+      <section class="mcv-page-wrap">
+        <div class="matrix-border" aria-hidden="true"></div>
+        <main class="mcv-page">
+          <div class="matrix-header-bar" aria-hidden="true">
+            <span class="matrix-status">SYSTEM ACCESS GRANTED</span>
+            <span class="matrix-cursor">_</span>
+          </div>
+
+          {% if basics %}
+          <header class="mcv-header">
+            {% if basics.avatar %}
+            <div class="mcv-header-avatar">
+              <img src="{{ helpers.asset(basics.avatar) }}" alt="{{ basics.name or 'Avatar' }}" />
+            </div>
+            {% endif %}
+            <div class="mcv-header-main">
+              {% if basics.name %}
+              <h1 class="mcv-name">
+                <span class="matrix-prompt">&gt; </span>{{ basics.name }}
+              </h1>
+              {% endif %}
+              {% if basics.headline %}
+              <p class="mcv-headline">// {{ basics.headline }}</p>
+              {% endif %}
+              {% if basics.summary %}
+              <p class="mcv-summary">{{ basics.summary }}</p>
+              {% endif %}
+              {% if basics.email or basics.phone or basics.location or basics.website or basics.github or (basics.extraLinks and basics.extraLinks.length) %}
+              <ul class="mcv-contacts">
+                {% if basics.email %}
+                <li class="mcv-contact-item"><span class="mcv-contact-label">email:</span><a class="mcv-contact-link" href="mailto:{{ basics.email }}">{{ basics.email }}</a></li>
+                {% endif %}
+                {% if basics.phone %}
+                <li class="mcv-contact-item"><span class="mcv-contact-label">phone:</span><span class="mcv-contact-value">{{ basics.phone }}</span></li>
+                {% endif %}
+                {% if basics.location %}
+                <li class="mcv-contact-item"><span class="mcv-contact-label">location:</span><span class="mcv-contact-value">{{ basics.location }}</span></li>
+                {% endif %}
+                {% if basics.website %}
+                <li class="mcv-contact-item"><span class="mcv-contact-label">web:</span><a class="mcv-contact-link" href="{{ basics.website }}">{{ basics.website }}</a></li>
+                {% endif %}
+                {% if basics.github %}
+                <li class="mcv-contact-item"><span class="mcv-contact-label">github:</span><a class="mcv-contact-link" href="{{ basics.github }}">{{ basics.github }}</a></li>
+                {% endif %}
+                {% for link in basics.extraLinks or [] %}
+                <li class="mcv-contact-item"><span class="mcv-contact-label">{{ link.label | lower }}:</span><a class="mcv-contact-link" href="{{ link.href }}">{{ link.label }}</a></li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+          </header>
+          {% endif %}
+
+          <article class="mcv-content markdown-body">
+            {{ contentHtml | safe }}
+          </article>
+        </main>
+      </section>
+      <footer class="mcv-footer">
+        Powered by <a class="mcv-footer-link" href="https://github.com/BigLiao/markCV">markCV</a>
+      </footer>
+    </main>
+
+    <script>
+      (function() {
+        var canvas = document.querySelector('.matrix-rain');
+        if (!canvas) return;
+        var ctx = canvas.getContext('2d');
+        var w, h, columns, drops;
+        var chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEF';
+
+        function resize() {
+          w = canvas.width = window.innerWidth;
+          h = canvas.height = window.innerHeight;
+          columns = Math.floor(w / 18);
+          drops = [];
+          for (var i = 0; i < columns; i++) drops[i] = Math.random() * -100;
+        }
+
+        function draw() {
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+          ctx.fillRect(0, 0, w, h);
+          ctx.fillStyle = '#0f0';
+          ctx.font = '15px monospace';
+          for (var i = 0; i < columns; i++) {
+            var ch = chars[Math.floor(Math.random() * chars.length)];
+            var x = i * 18;
+            var y = drops[i] * 18;
+            ctx.globalAlpha = 0.8 + Math.random() * 0.2;
+            ctx.fillText(ch, x, y);
+            if (y > h && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+          }
+          ctx.globalAlpha = 1;
+          requestAnimationFrame(draw);
+        }
+
+        resize();
+        window.addEventListener('resize', resize);
+        draw();
+      })();
+    </script>
+  </body>
+</html>

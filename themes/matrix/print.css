@@ -1,0 +1,49 @@
+@page {
+  size: A4;
+  margin: 0;
+}
+
+html,
+body {
+  margin: 0;
+  background: #000000;
+}
+
+.mcv-page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0;
+  box-shadow: none;
+  animation: none;
+}
+
+.matrix-rain,
+.matrix-crt,
+.matrix-border,
+.mcv-note,
+.mcv-footer,
+.mcv-pin {
+  display: none !important;
+}
+
+.matrix-header-bar {
+  animation: none;
+}
+
+.matrix-status {
+  animation: none;
+}
+
+.matrix-cursor {
+  display: none;
+}
+
+.mcv-header,
+.mcv-content h2,
+.mcv-content h3,
+.mcv-content table,
+.mcv-content blockquote,
+.mcv-content pre,
+.mcv-content img {
+  break-inside: avoid;
+}
