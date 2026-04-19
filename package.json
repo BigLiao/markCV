@@ -1,5 +1,5 @@
 {
-  "name": "markcv",
+  "name": "mark-cv",
   "version": "2.0.0-beta.1",
   "description": "Markdown-first resume renderer with themeable HTML and A4 PDF output.",
   "type": "module",

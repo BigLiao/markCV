@@ -1,9 +1,0 @@
-.git
-.gitignore
-.DS_Store
-node_modules
-*.log
-.temp
-
-package-lock.json
-.idea
