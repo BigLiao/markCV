@@ -6,15 +6,26 @@
 html,
 body {
   margin: 0;
-  background: #0d0d1a;
+  padding: 0;
+  background: #ffffff;
+}
+
+.mcv {
+  color: #1e2430;
+  font-family: "Avenir Next", "PingFang SC", "Helvetica Neue", sans-serif;
+  line-height: 1.55;
 }
 
 .mcv-page {
   width: 210mm;
   min-height: 297mm;
   margin: 0;
+  padding: 16mm;
+  background: #ffffff;
+  border: none;
   box-shadow: none;
   animation: none;
+  break-after: page;
 }
 
 .cyber-grid,
@@ -26,9 +37,126 @@ body {
   display: none !important;
 }
 
+.mcv-name {
+  text-shadow: none;
+  animation: none;
+  color: #1e2430;
+}
+
 .mcv-name::before,
 .mcv-name::after {
   display: none;
+}
+
+.mcv-headline {
+  color: #333333;
+}
+
+.cyber-bracket {
+  color: #666666;
+}
+
+.mcv-summary {
+  color: #555555;
+}
+
+.mcv-header {
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.mcv-header::after {
+  display: none;
+}
+
+.cyber-avatar-frame::before {
+  display: none;
+}
+
+.cyber-avatar-frame img {
+  filter: none;
+}
+
+.mcv-contact-item {
+  background: none;
+  border: none;
+  clip-path: none;
+  padding: 0;
+}
+
+.mcv-contact-label {
+  color: #1e2430;
+}
+
+.mcv-contact-link,
+.mcv-contact-value {
+  color: #333333;
+}
+
+.mcv-content h2 {
+  color: #1e2430;
+  text-shadow: none;
+}
+
+.mcv-content h2::before {
+  color: #999999;
+}
+
+.mcv-content h2::after {
+  background: #d0d0d0;
+}
+
+.mcv-content h3 {
+  color: #333333;
+}
+
+.mcv-content h3::before {
+  color: #999999;
+}
+
+.mcv-content a {
+  color: #333333;
+}
+
+.mcv-content li::marker {
+  color: #666666;
+}
+
+.mcv-content th {
+  color: #1e2430;
+  background: #f5f5f5;
+  border-bottom-color: #d0d0d0;
+}
+
+.mcv-content td {
+  border-bottom-color: #e0e0e0;
+}
+
+.mcv-content blockquote {
+  border-left-color: #999999;
+  background: #f8f8f8;
+}
+
+.mcv-content pre {
+  background: #f5f5f5;
+  color: #333333;
+  border-color: #e0e0e0;
+}
+
+.mcv-content pre::before {
+  display: none;
+}
+
+.mcv-content code {
+  color: #333333;
+  background: #f5f5f5;
+}
+
+.mcv-content hr {
+  background: #d0d0d0;
+}
+
+.mcv-content img {
+  border-color: #e0e0e0;
 }
 
 .mcv-header,

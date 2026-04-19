@@ -6,22 +6,105 @@
 html,
 body {
   margin: 0;
-  background: #f4edd3;
+  padding: 0;
+  background: #ffffff;
+}
+
+.mcv {
+  color: #2c1810;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, "Songti SC", serif;
+  line-height: 1.7;
 }
 
 .mcv-page {
   width: 210mm;
   min-height: 297mm;
   margin: 0;
+  padding: 18mm;
+  background: #ffffff;
   box-shadow: none;
   animation: none;
+  break-after: page;
+}
+
+.mcv-page::before {
+  display: none;
 }
 
 .book-spine,
+.book-ornament,
 .mcv-note,
 .mcv-footer,
 .mcv-pin {
   display: none !important;
+}
+
+.book-avatar-frame {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.book-avatar-frame img {
+  filter: none;
+  border: 1px solid #d0d0d0;
+}
+
+.mcv-name {
+  text-shadow: none;
+}
+
+.mcv-header::after {
+  background: #d0d0d0;
+}
+
+.mcv-contact-item + .mcv-contact-item::before {
+  color: #999999;
+}
+
+.mcv-contact-link {
+  color: #333333;
+  border-bottom: none;
+}
+
+.mcv-content h2::after {
+  background: #d0d0d0;
+}
+
+.mcv-content h2 + p::first-letter {
+  color: #2c1810;
+}
+
+.mcv-content ul li::before {
+  color: #999999;
+}
+
+.mcv-content a {
+  color: #333333;
+  border-bottom: none;
+}
+
+.mcv-content blockquote {
+  border-left-color: #999999;
+  background: #f8f8f8;
+}
+
+.mcv-content blockquote::before {
+  display: none;
+}
+
+.mcv-content img {
+  border-color: #e0e0e0;
+  box-shadow: none;
+}
+
+.mcv-content hr::before {
+  background: #d0d0d0;
+}
+
+.mcv-content hr::after {
+  background: #ffffff;
+  color: #999999;
 }
 
 .mcv-header,

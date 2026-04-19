@@ -6,36 +6,165 @@
 html,
 body {
   margin: 0;
-  background: #000000;
+  padding: 0;
+  background: #ffffff;
+}
+
+.mcv {
+  color: #1e2430;
+  font-family: "Fira Code", "JetBrains Mono", "Menlo", "PingFang SC", monospace;
+  line-height: 1.6;
 }
 
 .mcv-page {
   width: 210mm;
   min-height: 297mm;
   margin: 0;
+  padding: 16mm;
+  background: #ffffff;
+  border: none;
   box-shadow: none;
   animation: none;
+  break-after: page;
+}
+
+.mcv-page::before {
+  display: none;
 }
 
 .matrix-rain,
 .matrix-crt,
 .matrix-border,
+.matrix-header-bar,
 .mcv-note,
 .mcv-footer,
 .mcv-pin {
   display: none !important;
 }
 
-.matrix-header-bar {
-  animation: none;
+.mcv-header::after {
+  color: #d0d0d0;
 }
 
-.matrix-status {
-  animation: none;
+.mcv-header-avatar img {
+  filter: none;
+  border-color: #d0d0d0;
 }
 
-.matrix-cursor {
-  display: none;
+.matrix-prompt {
+  color: #999999;
+}
+
+.mcv-name {
+  color: #1e2430;
+  text-shadow: none;
+}
+
+.mcv-headline {
+  color: #555555;
+}
+
+.mcv-summary {
+  color: #555555;
+}
+
+.mcv-contact-label {
+  color: #999999;
+}
+
+.mcv-contact-link,
+.mcv-contact-value {
+  color: #333333;
+}
+
+.mcv-content h2 {
+  color: #1e2430;
+  text-shadow: none;
+}
+
+.mcv-content h2::before {
+  color: #999999;
+}
+
+.mcv-content h2::after {
+  background: repeating-linear-gradient(
+    90deg,
+    #d0d0d0 0,
+    #d0d0d0 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+.mcv-content h3 {
+  color: #333333;
+}
+
+.mcv-content h3::before {
+  color: #999999;
+}
+
+.mcv-content p,
+.mcv-content li,
+.mcv-content blockquote,
+.mcv-content td,
+.mcv-content th {
+  color: #333333;
+}
+
+.mcv-content ul li::marker {
+  color: #999999;
+}
+
+.mcv-content a {
+  color: #333333;
+  border-bottom: none;
+}
+
+.mcv-content img {
+  filter: none;
+  border-color: #e0e0e0;
+}
+
+.mcv-content th {
+  color: #1e2430;
+  background: #f5f5f5;
+  border-bottom-color: #d0d0d0;
+}
+
+.mcv-content td {
+  border-bottom-color: #e0e0e0;
+}
+
+.mcv-content blockquote {
+  border-left-color: #999999;
+  background: #f8f8f8;
+  color: #555555;
+}
+
+.mcv-content blockquote::before {
+  color: #999999;
+}
+
+.mcv-content pre {
+  background: #f5f5f5;
+  color: #333333;
+  border-color: #e0e0e0;
+}
+
+.mcv-content pre::before,
+.mcv-content pre::after {
+  color: #999999;
+}
+
+.mcv-content code {
+  color: #333333;
+  background: #f5f5f5;
+  border-color: #e0e0e0;
+}
+
+.mcv-content hr::before {
+  color: #d0d0d0;
 }
 
 .mcv-header,
