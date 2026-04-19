@@ -31,6 +31,7 @@
   },
   "scripts": {
     "build": "tsup",
+    "build:site": "npm run build && tsx scripts/build-pages.ts",
     "check": "tsc --noEmit",
     "test": "vitest run",
     "dev": "tsx src/cli/index.ts",

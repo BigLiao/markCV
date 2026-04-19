@@ -72,6 +72,12 @@ markcv build -i ./my-resume/resume.md -o ./my-resume/dist
 markcv pdf -i ./my-resume/resume.md -o ./my-resume/resume.pdf
 ```
 
+## 示例页面
+
+主题预览和示例页面：
+
+- [https://bigliao.github.io/markCV/](https://bigliao.github.io/markCV/)
+
 ## `resume.md`
 
 ```md
@@ -109,7 +115,10 @@ markcv theme check ./themes/my-theme
 
 当前内置主题：
 
+- `antique-book`
+- `cyberpunk`
 - `default`
+- `matrix`
 - `minimal`
 - `legacy`
 
@@ -119,32 +128,7 @@ markcv theme check ./themes/my-theme
 markcv dev -i ./examples/legacy/resume.md -t legacy
 ```
 
-## 架构
-
-主渲染链路：
-
-```text
-resume.md
--> frontmatter
--> markdown-it
--> contentHtml
--> theme template
--> themed HTML
--> PDF
-```
-
-主题包负责：
-
-- 页面结构
-- Header 布局
-- 装饰元素
-- 屏幕样式和打印样式
-
-Markdown 只负责内容。
-
 ## 文档
 
-- [产品方案](/Users/liao/My/github/markCV/docs/markcv-2.0.md)
-- [系统设计](/Users/liao/My/github/markCV/docs/system-design.md)
 - [主题开发](/Users/liao/My/github/markCV/docs/theme-development.md)
 - [开发指南](/Users/liao/My/github/markCV/docs/development-guide.md)

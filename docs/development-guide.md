@@ -92,6 +92,24 @@ Related design docs:
 - [System Design](/Users/liao/My/github/markCV/docs/system-design.md)
 - [Theme Development](/Users/liao/My/github/markCV/docs/theme-development.md)
 
+## GitHub Pages
+
+Build the demo site locally:
+
+```bash
+npm run build:site
+```
+
+This generates `site/index.html` plus one static HTML build for every `examples/**/*.md` file across all built-in themes.
+
+To publish with GitHub Pages:
+
+1. Push `.github/workflows/pages.yml` to `main` or `master`.
+2. In repository Settings -> Pages, set Source to `GitHub Actions`.
+3. Push again, or run the `Pages` workflow manually.
+
+Project Pages URLs usually look like `https://<owner>.github.io/<repo>/`.
+
 ## Release
 
 ### One-time setup

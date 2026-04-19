@@ -72,6 +72,12 @@ Export PDF:
 markcv pdf -i ./my-resume/resume.md -o ./my-resume/resume.pdf
 ```
 
+## Demo
+
+Theme gallery and example pages:
+
+- [https://bigliao.github.io/markCV/](https://bigliao.github.io/markCV/)
+
 ## `resume.md`
 
 ```md
@@ -109,7 +115,10 @@ markcv theme check ./themes/my-theme
 
 Built-in themes:
 
+- `antique-book`
+- `cyberpunk`
 - `default`
+- `matrix`
 - `minimal`
 - `legacy`
 
@@ -119,32 +128,7 @@ Legacy example:
 markcv dev -i ./examples/legacy/resume.md -t legacy
 ```
 
-## Architecture
-
-Main render flow:
-
-```text
-resume.md
--> frontmatter
--> markdown-it
--> contentHtml
--> theme template
--> themed HTML
--> PDF
-```
-
-Theme packages define:
-
-- page structure
-- header layout
-- decorative elements
-- screen and print styles
-
-Markdown only provides content.
-
 ## Docs
 
-- [Product Plan](/Users/liao/My/github/markCV/docs/markcv-2.0.md)
-- [System Design](/Users/liao/My/github/markCV/docs/system-design.md)
 - [Theme Development](/Users/liao/My/github/markCV/docs/theme-development.md)
 - [Development Guide](/Users/liao/My/github/markCV/docs/development-guide.md)
