@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="{{ document.lang }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="MarkCV 2.0" />
+    <title>{{ document.title }}</title>
+    <link rel="stylesheet" href="{{ helpers.themeAsset('screen.css') }}" media="screen" />
+    <link rel="stylesheet" href="{{ helpers.themeAsset('print.css') }}" media="print" />
+  </head>
+  <body class="mcv theme-{{ theme.name }}">
+    <main class="mcv-shell">
+      <section class="mcv-page-wrap">
+        <main class="mcv-page">
+          {% if basics %}
+          <header class="mcv-header">
+            <div class="mcv-header-main">
+              {% if basics.name %}
+              <h1 class="mcv-name">{{ basics.name }}</h1>
+              {% endif %}
+              {% if basics.headline %}
+              <p class="mcv-headline">{{ basics.headline }}</p>
+              {% endif %}
+              {% if basics.summary %}
+              <p class="mcv-summary">{{ basics.summary }}</p>
+              {% endif %}
+              {% if basics.email or basics.phone or basics.location or basics.website or basics.github or (basics.extraLinks and basics.extraLinks.length) %}
+              <ul class="mcv-contacts">
+                {% if basics.email %}
+                <li class="mcv-contact-item"><span class="mcv-contact-label">Email</span><a class="mcv-contact-link" href="mailto:{{ basics.email }}">{{ basics.email }}</a></li>
+                {% endif %}
+                {% if basics.phone %}
+                <li class="mcv-contact-item"><span class="mcv-contact-label">Phone</span><span class="mcv-contact-value">{{ basics.phone }}</span></li>
+                {% endif %}
+                {% if basics.location %}
+                <li class="mcv-contact-item"><span class="mcv-contact-label">Location</span><span class="mcv-contact-value">{{ basics.location }}</span></li>
+                {% endif %}
+                {% if basics.website %}
+                <li class="mcv-contact-item"><span class="mcv-contact-label">Website</span><a class="mcv-contact-link" href="{{ basics.website }}">{{ basics.website }}</a></li>
+                {% endif %}
+                {% if basics.github %}
+                <li class="mcv-contact-item"><span class="mcv-contact-label">GitHub</span><a class="mcv-contact-link" href="{{ basics.github }}">{{ basics.github }}</a></li>
+                {% endif %}
+                {% for link in basics.extraLinks or [] %}
+                <li class="mcv-contact-item"><span class="mcv-contact-label">{{ link.label }}</span><a class="mcv-contact-link" href="{{ link.href }}">{{ link.label }}</a></li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+            {% if basics.avatar %}
+            <div class="mcv-header-avatar">
+              <img src="{{ helpers.asset(basics.avatar) }}" alt="{{ basics.name or 'Avatar' }}" />
+            </div>
+            {% endif %}
+          </header>
+          {% endif %}
+
+          <article class="mcv-content markdown-body">
+            {{ contentHtml | safe }}
+          </article>
+        </main>
+      </section>
+      <footer class="mcv-footer">
+        Powered by <a class="mcv-footer-link" href="https://github.com/BigLiao/markCV">markCV</a>
+      </footer>
+    </main>
+  </body>
+</html>

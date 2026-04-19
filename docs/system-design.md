@@ -1,6 +1,6 @@
 # MarkCV 2.0 系统设计
 
-> 本文档是 [markcv-2.0.md](/Users/liao/My/github/markCV/docs/markcv-2.0.md:1) 的工程落地设计，描述 2.0 在新需求下的系统架构、模块边界、渲染链路和技术选型。
+> 本文档是 [markcv-2.0.md](/Users/liao/My/github/markCV/docs/markcv-2.0.md:1) 的工程落地设计，描述 2.0 在当前需求下的系统架构、模块边界、渲染链路、主题模板机制和 CLI 行为。
 
 ## 1. 设计目标
 
@@ -10,7 +10,7 @@ MarkCV 2.0 的系统设计围绕下面几个目标展开：
 - 通过 frontmatter 提供最少量的基础信息和输出配置
 - 支持在任意目录运行 CLI，通过参数指定输入文件、主题和输出位置
 - 支持本地预览、HTML 构建、PDF 导出
-- 通过固定 HTML 壳和 CSS 主题包实现换皮
+- 通过主题模板 + CSS + 资源文件实现更强的换皮能力
 - 使用现代 Node.js 和 TypeScript 技术栈重建 1.x 的老旧工程
 
 ## 2. 核心架构
@@ -21,7 +21,7 @@ MarkCV 2.0 采用简单的单向渲染链路：
 resume.md
 -> frontmatter 解析
 -> Markdown 渲染
--> 固定 HTML 壳组装
+-> 主题模板渲染
 -> 注入主题样式与资源
 -> HTML 输出
 -> PDF 导出
@@ -31,11 +31,12 @@ resume.md
 
 - Header 基础信息通过 `frontmatter.basics` 提供
 - 正文 Markdown 直接渲染为 HTML
-- 主题只负责 CSS 和静态资源，不参与正文解析
+- 主题通过模板决定页面骨架和装饰元素
+- Markdown 内容始终通过单一的 `contentHtml` 嵌入主题
 
 ## 3. 模块划分
 
-2.0 建议采用单 package TypeScript 工程，而不是 monorepo。当前产品范围较克制，单包更利于实现和维护。
+2.0 采用单 package TypeScript 工程。当前产品范围仍然克制，单包更利于实现和维护。
 
 建议目录：
 
@@ -48,6 +49,7 @@ src/
 themes/
   default/
   minimal/
+  legacy/
 
 docs/
 ```
@@ -77,6 +79,7 @@ type MarkcvConfig = {
     name: string;
     headline?: string;
     avatar?: string;
+    summary?: string;
     email?: string;
     phone?: string;
     location?: string;
@@ -101,12 +104,12 @@ type MarkcvConfig = {
 
 负责：
 
-- 生成固定 HTML 壳
-- 把 `basics` 渲染成统一 Header 区
-- 把 Markdown HTML 放入内容区
+- 组装模板渲染上下文
+- 把 `basics`、`contentHtml`、页面元信息传给主题模板
+- 调用模板引擎生成最终 HTML
 - 注入主题样式和页面元信息
 
-这一层统一控制最终页面结构，而不是把模板逻辑下放给主题。
+这一层统一控制主题上下文、资源解析和最终 HTML 输出，但页面结构本身由主题模板决定。
 
 ### 3.4 `src/core/theme`
 
@@ -114,7 +117,7 @@ type MarkcvConfig = {
 
 - 解析 `--theme` 参数
 - 加载内置主题或本地目录主题
-- 读取 `theme.json`、`screen.css`、`print.css`
+- 读取 `theme.json`、`template.njk`、`screen.css`、`print.css`
 - 校验主题目录规范
 - 提供主题资源路径解析
 
@@ -193,65 +196,94 @@ frontmatter 只保留以下范围：
 - 不额外做 sanitize
 - 主题不保证专门适配任意自定义 HTML 结构
 
-### 4.3 固定 HTML 壳
+### 4.3 模板渲染
 
-引擎统一生成固定 HTML 壳，主题不能改这个结构。
+引擎不再生成固定 HTML 壳，而是统一准备主题模板所需的上下文，再交给主题模板输出页面结构。
 
-建议结构如下：
+建议模板上下文如下：
+
+```ts
+type ThemeContext = {
+  document: {
+    title: string;
+    lang: string;
+  };
+  basics?: {
+    name: string;
+    headline?: string;
+    avatar?: string;
+    summary?: string;
+    email?: string;
+    phone?: string;
+    location?: string;
+    website?: string;
+    github?: string;
+    extraLinks?: Array<{ label: string; href: string }>;
+  };
+  contentHtml: string;
+  theme: {
+    name: string;
+    label: string;
+  };
+  helpers: {
+    asset: (value?: string) => string | undefined;
+    themeAsset: (value: string) => string;
+  };
+};
+```
+
+主题模板必须消费：
+
+- `contentHtml`
+- `document.title`
+- `document.lang`
+
+主题模板可以消费：
+
+- `basics`
+- `theme`
+- `helpers.asset()`
+- `helpers.themeAsset()`
+
+一份主题模板的示意结构如下：
 
 ```html
 <!doctype html>
-<html lang="zh-CN">
+<html lang="{{ document.lang }}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>张三的简历</title>
-    <link rel="stylesheet" href="./assets/theme/screen.css" media="screen" />
-    <link rel="stylesheet" href="./assets/theme/print.css" media="print" />
+    <title>{{ document.title }}</title>
+    <link rel="stylesheet" href="{{ helpers.themeAsset('screen.css') }}" media="screen" />
+    <link rel="stylesheet" href="{{ helpers.themeAsset('print.css') }}" media="print" />
   </head>
-  <body class="mcv theme-default">
+  <body class="mcv theme-{{ theme.name }}">
+    <div class="paper-bg"></div>
     <main class="mcv-page">
-      <header class="mcv-header">
-        <div class="mcv-header-main">
-          <h1 class="mcv-name">张三</h1>
-          <p class="mcv-headline">Frontend Engineer</p>
-          <ul class="mcv-contacts">...</ul>
-        </div>
-        <div class="mcv-header-avatar">...</div>
-      </header>
-
+      <header class="mcv-header">...</header>
       <article class="mcv-content markdown-body">
-        ...markdown rendered html...
+        {{ contentHtml | safe }}
       </article>
     </main>
   </body>
 </html>
 ```
 
-固定 class contract：
-
-- `.mcv`
-- `.mcv-page`
-- `.mcv-header`
-- `.mcv-header-main`
-- `.mcv-header-avatar`
-- `.mcv-name`
-- `.mcv-headline`
-- `.mcv-contacts`
-- `.mcv-content`
+正文内容只有一个入口，不支持通过 Markdown 本身控制多区域布局。
 
 ## 5. 主题系统设计
 
 ### 5.1 主题形式
 
-2.0 的主题是 CSS 主题包，而不是模板插件。
+2.0 的主题是模板主题包，而不是纯 CSS 换皮。
 
 一个主题目录结构如下：
 
 ```text
 themes/
-  default/
+  paper/
     theme.json
+    template.njk
     screen.css
     print.css
     assets/
@@ -261,8 +293,8 @@ themes/
 
 ```json
 {
-  "name": "default",
-  "label": "Default",
+  "name": "paper",
+  "label": "Paper",
   "version": "1.0.0",
   "author": "markcv"
 }
@@ -272,6 +304,8 @@ themes/
 
 主题可以控制：
 
+- 页面 HTML 骨架
+- 背景层和装饰元素
 - 字体
 - 颜色
 - 间距
@@ -279,7 +313,7 @@ themes/
 - 头像样式
 - 标题层级样式
 - 列表、表格、引用、代码块、图片的表现
-- 打印分页和纸张感
+- 打印分页和细节优化
 
 主题不能控制：
 
@@ -287,6 +321,7 @@ themes/
 - Markdown 解析规则
 - 正文语义
 - JavaScript 交互能力
+- 主题私有正文语法
 
 ### 5.3 主题资源加载
 
@@ -309,34 +344,43 @@ themes/
 
 - 直接按本地目录加载
 
-### 5.4 CSS Contract
+### 5.4 模板与样式约束
 
-系统提供统一 CSS 变量入口，主题通过覆盖变量完成换皮。
+主题必须自行定义模板中的主要结构，但应遵守这些约束：
 
-建议默认变量：
+- 模板必须输出完整 HTML 文档
+- 模板必须使用 `contentHtml`
+- 模板应在页面中提供一个正文容器，例如 `.mcv-content`
+- 模板应正确处理 `basics` 部分字段缺失的情况
+- 模板中可以添加任意装饰元素，但不应要求用户修改 Markdown 内容来适配这些装饰
 
-```css
-.mcv {
-  --mcv-page-width: 210mm;
-  --mcv-page-min-height: 297mm;
-  --mcv-page-padding: 14mm;
-  --mcv-font-body: "Inter", "PingFang SC", sans-serif;
-  --mcv-font-heading: "Inter", "PingFang SC", sans-serif;
-  --mcv-color-text: #222;
-  --mcv-color-muted: #666;
-  --mcv-color-accent: #1456d9;
-  --mcv-color-border: #ddd;
-  --mcv-header-gap: 16px;
-}
-```
+CSS 仍建议围绕这些基础类名展开，便于主题间保留最低限度的一致性：
 
-### 5.5 主题校验
+- `.mcv`
+- `.mcv-page`
+- `.mcv-header`
+- `.mcv-content`
+- `.markdown-body`
+
+### 5.5 主题创建与校验
+
+`markcv theme create` 用于生成主题骨架。默认应生成：
+
+- `theme.json`
+- `template.njk`
+- `screen.css`
+- `print.css`
+- `assets/`
+
+其中默认的 `template.njk` 必须是一个可以直接预览的最小模板，而不是空文件。
 
 `markcv theme check` 至少检查：
 
 - `theme.json` 是否存在
+- `template.njk` 是否存在
 - `screen.css` 是否存在
 - `print.css` 是否存在
+- 模板是否使用 `contentHtml`
 - `print.css` 是否定义 A4 打印规则
 - 核心容器类是否有基本样式
 
@@ -362,6 +406,8 @@ MarkCV 2.0 的资源包括：
 则最终解析路径为：
 
 - `/work/cv/images/me.png`
+
+主题资源则统一相对于主题目录中的 `assets/` 解析。
 
 ### 6.3 开发模式
 
@@ -419,6 +465,9 @@ markcv dev -i ./resume.md
 markcv dev -i ./resume.md -t minimal
 markcv build -i ./resume.md -t ./themes/paper -o ./dist
 markcv pdf -i ./resume.md -t default -o ./dist/resume.pdf
+markcv theme list
+markcv theme create ./themes/my-theme
+markcv theme check ./themes/my-theme
 ```
 
 命令职责：
@@ -450,10 +499,12 @@ markcv pdf -i ./resume.md -t default -o ./dist/resume.pdf
 ### 7.5 `markcv theme create`
 
 - 生成主题目录骨架
+- 自带可运行的默认模板和样式文件
 
 ### 7.6 `markcv theme check`
 
 - 检查主题目录是否合法
+- 检查模板、样式和 A4 打印规则
 
 ### 7.7 `markcv init`
 
@@ -506,63 +557,34 @@ PDF 导出基于浏览器打印能力实现。
 - 开启 `html`、`linkify`、`typographer`
 - 通过 HTML 后处理完成本地资源路径改写
 
-### 9.4 配置校验
+### 9.4 模板渲染
+
+- `nunjucks`：主题模板渲染
+
+### 9.5 配置校验
 
 - `zod`
 
-### 9.5 预览与资源处理
+### 9.6 预览与资源处理
 
 - `chokidar`：文件监听
 - `cheerio`：HTML 片段后处理和资源路径改写
 - `fs-extra`：资源复制与目录操作
 - `open`：本地预览时打开浏览器
 
-### 9.6 PDF 与测试
+### 9.7 PDF 与测试
 
 - `playwright`：PDF 导出
-- `vitest`：单元测试
+- `vitest`：单元测试和集成测试
 
-## 10. 测试策略
+## 10. 非目标
 
-至少覆盖以下内容：
-
-- frontmatter 解析和校验
-- Markdown 到 HTML 渲染正确性
-- 本地图片和头像路径解析
-- 主题目录合法性检查
-- `build` 输出目录结构和资源复制
-- `pdf` 导出结果存在且页面尺寸正确
-- `dev` 模式下 Markdown 改动后能重新渲染
-- 切换内置主题和本地主题时结果正确
-
-## 11. 非目标
-
-当前系统设计明确不做：
+当前阶段明确不做：
 
 - 在线编辑器
 - 富文本或拖拽排版
-- 重型 resume schema
-- 正文语义建模
-- 主题模板脚本执行
-- 主题级 JavaScript 逻辑
-- 多页面文档站系统
+- JSON/YAML 独立输入格式
+- 正文布局 DSL
+- RenderCV 式重 schema
+- 主题专属 frontmatter 配置系统
 
-## 12. 第一阶段交付建议
-
-第一阶段应优先完成：
-
-1. `resume.md` + frontmatter 解析
-2. Markdown to HTML 渲染
-3. 固定 HTML 壳
-4. 内置默认主题
-5. `markcv dev`
-6. `markcv build`
-7. `markcv pdf`
-
-第二阶段再补：
-
-1. `theme create`
-2. `theme check`
-3. 更多内置主题
-4. 资源处理优化
-5. 视觉回归测试

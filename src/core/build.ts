@@ -42,6 +42,18 @@ function resolveOutput(cwd: string, output?: string): ResolvedOutput {
   };
 }
 
+function resolveThemeAssetBuildUrl(reference: string): string {
+  if (reference === "screen.css" || reference === "print.css") {
+    return `./assets/theme/${reference}`;
+  }
+
+  if (reference.startsWith("assets/")) {
+    return `./assets/theme/${reference}`;
+  }
+
+  throw new Error(`Unsupported theme asset reference: ${reference}`);
+}
+
 async function copyThemeAssets(themeDirectory: string, outputDirectory: string): Promise<void> {
   await fs.ensureDir(path.join(outputDirectory, "assets", "theme"));
   await fs.copyFile(path.join(themeDirectory, "screen.css"), path.join(outputDirectory, "assets", "theme", "screen.css"));
@@ -67,10 +79,8 @@ export async function buildResume(options: CommonCommandOptions = {}): Promise<B
     frontmatter: loaded.frontmatter,
     bodyHtml: rewrittenBodyHtml,
     theme,
-    screenCssHref: "./assets/theme/screen.css",
-    printCssHref: "./assets/theme/print.css",
-    mode: "build",
-    assetResolver: (reference, mode) => assetManager.resolveUrl(reference, mode)
+    assetResolver: (reference) => assetManager.resolveUrl(reference, "build"),
+    themeAssetResolver: resolveThemeAssetBuildUrl
   });
   const htmlPath = path.join(output.outputDirectory, output.htmlFilename);
 

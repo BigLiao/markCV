@@ -50,6 +50,18 @@ function getContentType(filePath: string): string {
   }
 }
 
+function resolveThemeAssetDevUrl(reference: string): string {
+  if (reference === "screen.css" || reference === "print.css") {
+    return `/__markcv/theme/${reference}`;
+  }
+
+  if (reference.startsWith("assets/")) {
+    return `/__markcv/theme/${reference}`;
+  }
+
+  throw new Error(`Unsupported theme asset reference: ${reference}`);
+}
+
 export async function startDevServer(options: DevCommandOptions = {}): Promise<void> {
   const cwd = path.resolve(options.cwd || process.cwd());
   const inputPath = path.resolve(cwd, options.input || DEFAULT_INPUT);
@@ -72,10 +84,8 @@ export async function startDevServer(options: DevCommandOptions = {}): Promise<v
       frontmatter: loaded.frontmatter,
       bodyHtml: rewrittenBodyHtml,
       theme,
-      screenCssHref: "/__markcv/theme/screen.css",
-      printCssHref: "/__markcv/theme/print.css",
-      mode: "dev",
-      assetResolver: (reference, mode) => assetManager.resolveUrl(reference, mode)
+      assetResolver: (reference) => assetManager.resolveUrl(reference, "dev"),
+      themeAssetResolver: resolveThemeAssetDevUrl
     });
 
     currentHtml = html.replace("</body>", `${reloadClient}</body>`);
@@ -84,9 +94,8 @@ export async function startDevServer(options: DevCommandOptions = {}): Promise<v
     currentThemePrintCssPath = theme.printCssPath;
     currentThemeAssetsDirectory = theme.assetsDirectory || "";
     currentAssetManager = assetManager;
+    watcher.add(currentThemeDirectory);
   };
-
-  await renderCurrentState();
 
   const notifyReload = () => {
     for (const client of clients) {
@@ -97,6 +106,8 @@ export async function startDevServer(options: DevCommandOptions = {}): Promise<v
   const watcher = chokidar.watch([inputPath, path.dirname(inputPath), BUILTIN_THEMES_DIR], {
     ignoreInitial: true
   });
+
+  await renderCurrentState();
 
   watcher.on("all", async () => {
     try {

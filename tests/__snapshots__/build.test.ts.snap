@@ -14,20 +14,26 @@ exports[`buildResume > builds the example resume with the default theme 1`] = `
   <body class="mcv theme-default">
     <main class="mcv-shell">
       <section class="mcv-page-wrap">
-        <div class="mcv-pin mcv-pin-left" aria-hidden="true"></div>
-        <div class="mcv-pin mcv-pin-right" aria-hidden="true"></div>
         <main class="mcv-page">
-          
-    <header class="mcv-header">
-      <div class="mcv-header-main">
-        <h1 class="mcv-name">Jane Doe</h1>
-        <p class="mcv-headline">Product Designer</p>
-        <p class="mcv-summary">Product designer focused on content systems, interaction details, and shipping work fast.</p>
-        <ul class="mcv-contacts"><li class="mcv-contact-item"><span class="mcv-contact-label">Email</span><a class="mcv-contact-link" href="mailto:jane@example.com">jane@example.com</a></li><li class="mcv-contact-item"><span class="mcv-contact-label">Phone</span><span class="mcv-contact-value">+86 138 0000 0000</span></li><li class="mcv-contact-item"><span class="mcv-contact-label">Location</span><span class="mcv-contact-value">Shanghai</span></li><li class="mcv-contact-item"><span class="mcv-contact-label">Website</span><a class="mcv-contact-link" href="https://janedoe.design">https://janedoe.design</a></li><li class="mcv-contact-item"><span class="mcv-contact-label">GitHub</span><a class="mcv-contact-link" href="https://github.com/janedoe">https://github.com/janedoe</a></li><li class="mcv-contact-item"><span class="mcv-contact-label">Portfolio</span><a class="mcv-contact-link" href="https://janedoe.design/work">Portfolio</a></li></ul>
-      </div>
-      <div class="mcv-header-avatar"><img src="./assets/content/002-avatar.svg" alt="Jane Doe" /></div>
-    </header>
-  
+          <header class="mcv-header">
+            <div class="mcv-header-main">
+              <h1 class="mcv-name">Jane Doe</h1>
+              <p class="mcv-headline">Product Designer</p>
+              <p class="mcv-summary">Product designer focused on content systems, interaction details, and shipping work fast.</p>
+              <ul class="mcv-contacts">
+                <li class="mcv-contact-item"><span class="mcv-contact-label">Email</span><a class="mcv-contact-link" href="mailto:jane@example.com">jane@example.com</a></li>
+                <li class="mcv-contact-item"><span class="mcv-contact-label">Phone</span><span class="mcv-contact-value">+86 138 0000 0000</span></li>
+                <li class="mcv-contact-item"><span class="mcv-contact-label">Location</span><span class="mcv-contact-value">Shanghai</span></li>
+                <li class="mcv-contact-item"><span class="mcv-contact-label">Website</span><a class="mcv-contact-link" href="https://janedoe.design">https://janedoe.design</a></li>
+                <li class="mcv-contact-item"><span class="mcv-contact-label">GitHub</span><a class="mcv-contact-link" href="https://github.com/janedoe">https://github.com/janedoe</a></li>
+                <li class="mcv-contact-item"><span class="mcv-contact-label">Portfolio</span><a class="mcv-contact-link" href="https://janedoe.design/work">Portfolio</a></li>
+              </ul>
+            </div>
+            <div class="mcv-header-avatar">
+              <img src="./assets/content/002-avatar.svg" alt="Jane Doe" />
+            </div>
+          </header>
+
           <article class="mcv-content markdown-body">
             <h2>Summary</h2>
 <p>Seven years building product experiences across content platforms, collaboration tools, and design systems.</p>
@@ -77,17 +83,10 @@ exports[`buildResume > builds the example resume with the default theme 1`] = `
           </article>
         </main>
       </section>
-      <aside class="mcv-note" aria-label="Export tips">
-        <div class="mcv-note-content">
-          如何导出简历？<br />
-          1）右键选择“打印”<br />
-          2）目标打印机设置为“另存为PDF”
-        </div>
-      </aside>
+      <footer class="mcv-footer">
+        Powered by <a class="mcv-footer-link" href="https://github.com/BigLiao/markCV">markCV</a>
+      </footer>
     </main>
-    <footer class="mcv-footer">
-      Powered by <a class="mcv-footer-link" href="https://github.com/BigLiao/markCV">markCV</a>
-    </footer>
   </body>
 </html>
 "
@@ -110,17 +109,17 @@ exports[`buildResume > builds the legacy example resume with the legacy theme 1`
         <div class="mcv-pin mcv-pin-left" aria-hidden="true"></div>
         <div class="mcv-pin mcv-pin-right" aria-hidden="true"></div>
         <main class="mcv-page">
-          
-    <header class="mcv-header">
-      <div class="mcv-header-main">
-        <h1 class="mcv-name">bigLiao</h1>
-        
-        
-        <ul class="mcv-contacts"><li class="mcv-contact-item"><span class="mcv-contact-label">Email</span><a class="mcv-contact-link" href="mailto:bigliao@markcv.com">bigliao@markcv.com</a></li><li class="mcv-contact-item"><span class="mcv-contact-label">Phone</span><span class="mcv-contact-value">151****1111</span></li></ul>
-      </div>
-      <div class="mcv-header-avatar"><img src="./assets/content/001-avatar.jpeg" alt="bigLiao" /></div>
-    </header>
-  
+          <header class="mcv-header">
+            <div class="mcv-header-avatar">
+              <img src="./assets/content/001-avatar.jpeg" alt="bigLiao" />
+            </div>
+            <h1 class="mcv-name">bigLiao</h1>
+            <ul class="mcv-contacts">
+              <li class="mcv-contact-item"><span class="mcv-contact-label">Email</span><a class="mcv-contact-link" href="mailto:bigliao@markcv.com">bigliao@markcv.com</a></li>
+              <li class="mcv-contact-item"><span class="mcv-contact-label">Phone</span><span class="mcv-contact-value">151****1111</span></li>
+            </ul>
+          </header>
+
           <article class="mcv-content markdown-body">
             <h1>个人信息</h1>
 <ul>
@@ -190,6 +189,7 @@ exports[`buildResume > builds the legacy example resume with the legacy theme 1`
           </article>
         </main>
       </section>
+
       <aside class="mcv-note" aria-label="Export tips">
         <div class="mcv-note-content">
           如何导出简历？<br />
@@ -197,10 +197,10 @@ exports[`buildResume > builds the legacy example resume with the legacy theme 1`
           2）目标打印机设置为“另存为PDF”
         </div>
       </aside>
+      <footer class="mcv-footer">
+        Powered by <a class="mcv-footer-link" href="https://github.com/BigLiao/markCV">markCV</a>
+      </footer>
     </main>
-    <footer class="mcv-footer">
-      Powered by <a class="mcv-footer-link" href="https://github.com/BigLiao/markCV">markCV</a>
-    </footer>
   </body>
 </html>
 "
@@ -220,20 +220,26 @@ exports[`buildResume > builds the same example resume with the minimal theme ove
   <body class="mcv theme-minimal">
     <main class="mcv-shell">
       <section class="mcv-page-wrap">
-        <div class="mcv-pin mcv-pin-left" aria-hidden="true"></div>
-        <div class="mcv-pin mcv-pin-right" aria-hidden="true"></div>
         <main class="mcv-page">
-          
-    <header class="mcv-header">
-      <div class="mcv-header-main">
-        <h1 class="mcv-name">Jane Doe</h1>
-        <p class="mcv-headline">Product Designer</p>
-        <p class="mcv-summary">Product designer focused on content systems, interaction details, and shipping work fast.</p>
-        <ul class="mcv-contacts"><li class="mcv-contact-item"><span class="mcv-contact-label">Email</span><a class="mcv-contact-link" href="mailto:jane@example.com">jane@example.com</a></li><li class="mcv-contact-item"><span class="mcv-contact-label">Phone</span><span class="mcv-contact-value">+86 138 0000 0000</span></li><li class="mcv-contact-item"><span class="mcv-contact-label">Location</span><span class="mcv-contact-value">Shanghai</span></li><li class="mcv-contact-item"><span class="mcv-contact-label">Website</span><a class="mcv-contact-link" href="https://janedoe.design">https://janedoe.design</a></li><li class="mcv-contact-item"><span class="mcv-contact-label">GitHub</span><a class="mcv-contact-link" href="https://github.com/janedoe">https://github.com/janedoe</a></li><li class="mcv-contact-item"><span class="mcv-contact-label">Portfolio</span><a class="mcv-contact-link" href="https://janedoe.design/work">Portfolio</a></li></ul>
-      </div>
-      <div class="mcv-header-avatar"><img src="./assets/content/002-avatar.svg" alt="Jane Doe" /></div>
-    </header>
-  
+          <header class="mcv-header">
+            <div class="mcv-header-main">
+              <h1 class="mcv-name">Jane Doe</h1>
+              <p class="mcv-headline">Product Designer</p>
+              <p class="mcv-summary">Product designer focused on content systems, interaction details, and shipping work fast.</p>
+              <ul class="mcv-contacts">
+                <li class="mcv-contact-item"><span class="mcv-contact-label">Email</span><a class="mcv-contact-link" href="mailto:jane@example.com">jane@example.com</a></li>
+                <li class="mcv-contact-item"><span class="mcv-contact-label">Phone</span><span class="mcv-contact-value">+86 138 0000 0000</span></li>
+                <li class="mcv-contact-item"><span class="mcv-contact-label">Location</span><span class="mcv-contact-value">Shanghai</span></li>
+                <li class="mcv-contact-item"><span class="mcv-contact-label">Website</span><a class="mcv-contact-link" href="https://janedoe.design">https://janedoe.design</a></li>
+                <li class="mcv-contact-item"><span class="mcv-contact-label">GitHub</span><a class="mcv-contact-link" href="https://github.com/janedoe">https://github.com/janedoe</a></li>
+                <li class="mcv-contact-item"><span class="mcv-contact-label">Portfolio</span><a class="mcv-contact-link" href="https://janedoe.design/work">Portfolio</a></li>
+              </ul>
+            </div>
+            <div class="mcv-header-avatar">
+              <img src="./assets/content/002-avatar.svg" alt="Jane Doe" />
+            </div>
+          </header>
+
           <article class="mcv-content markdown-body">
             <h2>Summary</h2>
 <p>Seven years building product experiences across content platforms, collaboration tools, and design systems.</p>
@@ -283,17 +289,10 @@ exports[`buildResume > builds the same example resume with the minimal theme ove
           </article>
         </main>
       </section>
-      <aside class="mcv-note" aria-label="Export tips">
-        <div class="mcv-note-content">
-          如何导出简历？<br />
-          1）右键选择“打印”<br />
-          2）目标打印机设置为“另存为PDF”
-        </div>
-      </aside>
+      <footer class="mcv-footer">
+        Powered by <a class="mcv-footer-link" href="https://github.com/BigLiao/markCV">markCV</a>
+      </footer>
     </main>
-    <footer class="mcv-footer">
-      Powered by <a class="mcv-footer-link" href="https://github.com/BigLiao/markCV">markCV</a>
-    </footer>
   </body>
 </html>
 "

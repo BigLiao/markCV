@@ -18,7 +18,7 @@ src/cli/index.ts        # CLI 入口
 src/core/frontmatter.ts # frontmatter 解析
 src/core/markdown.ts    # Markdown 渲染
 src/core/assets.ts      # 本地资源改写/复制
-src/core/render.ts      # 固定 HTML 壳
+src/core/render.ts      # 主题模板渲染
 src/core/theme.ts       # 主题加载/校验
 src/core/build.ts       # HTML 构建
 src/core/dev.ts         # 本地预览
@@ -41,14 +41,14 @@ tests/__snapshots__/
 resume.md
 -> frontmatter
 -> markdown-it
--> HTML
+-> contentHtml
 -> 资源路径改写
--> 固定 HTML 壳
+-> theme template
 -> theme screen.css / print.css
 -> HTML / PDF
 ```
 
-主题只控制 CSS 和静态资源，不参与正文解析。
+主题控制模板、CSS 和静态资源，不参与正文解析。
 
 ## 开发
 

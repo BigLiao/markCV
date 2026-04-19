@@ -6,7 +6,7 @@ import fsExtra from "fs-extra";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { buildResume } from "../src/core/build.js";
-import { checkTheme } from "../src/core/theme.js";
+import { checkTheme, createThemeScaffold } from "../src/core/theme.js";
 
 const fixtureDirectory = path.resolve("tests/fixtures/example-resume");
 const legacyFixtureDirectory = path.resolve("tests/fixtures/legacy-resume");
@@ -112,6 +112,19 @@ describe("checkTheme", () => {
       issues: []
     });
     await expect(checkTheme("legacy")).resolves.toMatchObject({
+      ok: true,
+      issues: []
+    });
+  });
+
+  it("creates a theme scaffold with a default template", async () => {
+    const workspace = await createTempDirectory();
+    const themeDirectory = path.join(workspace, "paper-note");
+    const createdDirectory = await createThemeScaffold("paper-note", themeDirectory);
+
+    expect(createdDirectory).toBe(themeDirectory);
+    expect(await fsExtra.pathExists(path.join(themeDirectory, "template.njk"))).toBe(true);
+    await expect(checkTheme(themeDirectory)).resolves.toMatchObject({
       ok: true,
       issues: []
     });

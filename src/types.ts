@@ -45,6 +45,7 @@ export type ThemeMeta = {
 
 export type ResolvedTheme = ThemeMeta & {
   directory: string;
+  templatePath: string;
   screenCssPath: string;
   printCssPath: string;
   assetsDirectory?: string;

@@ -5,68 +5,68 @@
 [![CI](https://github.com/BigLiao/markCV/actions/workflows/ci.yml/badge.svg)](https://github.com/BigLiao/markCV/actions/workflows/ci.yml)
 [![license](https://img.shields.io/npm/l/mark-cv)](https://github.com/BigLiao/markCV/blob/master/LICENSE)
 
-Markdown-first resume renderer with themeable HTML output and A4 PDF export.
+一个以 Markdown 为中心的简历渲染器，支持主题化 HTML 输出和 A4 PDF 导出。
 
-[中文说明](./README.zh-CN.md)
+[English README](./README.md)
 
-## Overview
+## 介绍
 
-MarkCV keeps the authoring model small:
+MarkCV 保持很克制的输入模型：
 
-- one `resume.md`
-- YAML frontmatter for `basics`, `theme`, `title`, `lang`, and `pdf`
-- plain Markdown for the resume body
+- 一个 `resume.md`
+- 用 YAML frontmatter 提供 `basics`、`theme`、`title`、`lang`、`pdf`
+- 用原生 Markdown 编写正文
 
-It renders that content into a theme package:
+然后把内容渲染进主题包：
 
 - `template.njk`
 - `screen.css`
 - `print.css`
 - `assets/`
 
-This keeps content and presentation separate while still allowing themes to define their own page structure, decoration, and print layout.
+这样可以保持内容和表现分离，同时让主题拥有足够强的页面结构、装饰元素和打印能力。
 
-## Install
+## 安装
 
-Install from npm:
+全局安装：
 
 ```bash
 npm install -g mark-cv
 ```
 
-Or run without a global install:
+或者直接用 `npx`：
 
 ```bash
 npx mark-cv --help
 ```
 
-If you want PDF export, install the Playwright browser once:
+如果需要导出 PDF，还需要安装一次 Playwright 浏览器：
 
 ```bash
 npx playwright install chromium
 ```
 
-## Quick Start
+## 快速开始
 
-Create a starter resume:
+初始化示例简历：
 
 ```bash
 markcv init ./my-resume
 ```
 
-Preview it:
+本地预览：
 
 ```bash
 markcv dev -i ./my-resume/resume.md --open
 ```
 
-Build HTML:
+构建 HTML：
 
 ```bash
 markcv build -i ./my-resume/resume.md -o ./my-resume/dist
 ```
 
-Export PDF:
+导出 PDF：
 
 ```bash
 markcv pdf -i ./my-resume/resume.md -o ./my-resume/resume.pdf
@@ -96,9 +96,9 @@ basics:
 Seven years building product experiences across content platforms, collaboration tools, and design systems.
 ```
 
-The body stays plain Markdown. MarkCV does not require a resume-specific DSL.
+正文保持原生 Markdown，不要求简历专用 DSL。
 
-## Theme Commands
+## 主题命令
 
 ```bash
 markcv theme list
@@ -107,21 +107,21 @@ markcv theme check default
 markcv theme check ./themes/my-theme
 ```
 
-Built-in themes:
+当前内置主题：
 
 - `default`
 - `minimal`
 - `legacy`
 
-Legacy example:
+旧版风格示例：
 
 ```bash
 markcv dev -i ./examples/legacy/resume.md -t legacy
 ```
 
-## Architecture
+## 架构
 
-Main render flow:
+主渲染链路：
 
 ```text
 resume.md
@@ -133,18 +133,18 @@ resume.md
 -> PDF
 ```
 
-Theme packages define:
+主题包负责：
 
-- page structure
-- header layout
-- decorative elements
-- screen and print styles
+- 页面结构
+- Header 布局
+- 装饰元素
+- 屏幕样式和打印样式
 
-Markdown only provides content.
+Markdown 只负责内容。
 
-## Docs
+## 文档
 
-- [Product Plan](/Users/liao/My/github/markCV/docs/markcv-2.0.md)
-- [System Design](/Users/liao/My/github/markCV/docs/system-design.md)
-- [Theme Development](/Users/liao/My/github/markCV/docs/theme-development.md)
-- [Development Guide](/Users/liao/My/github/markCV/docs/development-guide.md)
+- [产品方案](/Users/liao/My/github/markCV/docs/markcv-2.0.md)
+- [系统设计](/Users/liao/My/github/markCV/docs/system-design.md)
+- [主题开发](/Users/liao/My/github/markCV/docs/theme-development.md)
+- [开发指南](/Users/liao/My/github/markCV/docs/development-guide.md)
