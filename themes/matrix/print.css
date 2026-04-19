@@ -16,16 +16,19 @@ body {
   line-height: 1.6;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .mcv-page {
   width: 210mm;
-  min-height: 297mm;
+  min-height: auto;
   margin: 0;
   padding: 16mm;
   background: #ffffff;
   border: none;
   box-shadow: none;
   animation: none;
-  break-after: page;
 }
 
 .mcv-page::before {
@@ -42,66 +45,121 @@ body {
   display: none !important;
 }
 
+/* --- Header Layout --- */
+
+.mcv-header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #d0d0d0;
+}
+
 .mcv-header::after {
-  color: #d0d0d0;
+  display: none;
+}
+
+.mcv-header-main {
+  min-width: 0;
 }
 
 .mcv-header-avatar img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
   filter: none;
-  border-color: #d0d0d0;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
 }
 
 .matrix-prompt {
-  color: #999999;
+  display: none;
 }
 
 .mcv-name {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
   color: #1e2430;
   text-shadow: none;
 }
 
 .mcv-headline {
+  margin: 4px 0 0;
+  font-size: 13px;
   color: #555555;
+  font-style: normal;
 }
 
 .mcv-summary {
+  margin: 8px 0 0;
+  font-size: 13px;
   color: #555555;
 }
 
+/* --- Contacts --- */
+
+.mcv-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  font-size: 11px;
+}
+
+.mcv-contact-item {
+  display: inline-flex;
+  gap: 4px;
+  align-items: baseline;
+}
+
 .mcv-contact-label {
-  color: #999999;
+  color: #888888;
 }
 
 .mcv-contact-link,
 .mcv-contact-value {
   color: #333333;
+  text-decoration: none;
+}
+
+/* --- Content --- */
+
+.mcv-content {
+  margin-top: 20px;
 }
 
 .mcv-content h2 {
+  margin: 22px 0 10px;
+  font-size: 15px;
   color: #1e2430;
   text-shadow: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #d0d0d0;
 }
 
 .mcv-content h2::before {
-  color: #999999;
+  display: none;
 }
 
 .mcv-content h2::after {
-  background: repeating-linear-gradient(
-    90deg,
-    #d0d0d0 0,
-    #d0d0d0 4px,
-    transparent 4px,
-    transparent 8px
-  );
+  display: none;
 }
 
 .mcv-content h3 {
+  margin: 14px 0 6px;
+  font-size: 13px;
   color: #333333;
 }
 
 .mcv-content h3::before {
-  color: #999999;
+  display: none;
 }
 
 .mcv-content p,
@@ -109,63 +167,105 @@ body {
 .mcv-content blockquote,
 .mcv-content td,
 .mcv-content th {
+  font-size: 12px;
   color: #333333;
 }
 
+.mcv-content ul,
+.mcv-content ol {
+  padding-left: 18px;
+}
+
 .mcv-content ul li::marker {
-  color: #999999;
+  content: normal;
 }
 
 .mcv-content a {
   color: #333333;
-  border-bottom: none;
+  text-decoration: none;
+  border: none;
 }
 
 .mcv-content img {
+  max-width: 100%;
   filter: none;
-  border-color: #e0e0e0;
+  border: 1px solid #e0e0e0;
+}
+
+.mcv-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
 }
 
 .mcv-content th {
+  padding: 6px 8px;
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: #1e2430;
   background: #f5f5f5;
-  border-bottom-color: #d0d0d0;
+  border-bottom: 1px solid #d0d0d0;
 }
 
 .mcv-content td {
-  border-bottom-color: #e0e0e0;
+  padding: 6px 8px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .mcv-content blockquote {
-  border-left-color: #999999;
+  margin: 12px 0;
+  padding: 8px 14px;
+  border-left: 3px solid #d0d0d0;
   background: #f8f8f8;
   color: #555555;
 }
 
 .mcv-content blockquote::before {
-  color: #999999;
+  display: none;
 }
 
 .mcv-content pre {
+  overflow: auto;
+  padding: 10px;
   background: #f5f5f5;
   color: #333333;
-  border-color: #e0e0e0;
+  border: 1px solid #e0e0e0;
+  font-size: 11px;
+  border-radius: 0;
 }
 
 .mcv-content pre::before,
 .mcv-content pre::after {
-  color: #999999;
+  display: none;
 }
 
 .mcv-content code {
+  font-size: 11px;
   color: #333333;
   background: #f5f5f5;
-  border-color: #e0e0e0;
+  padding: 1px 3px;
+  border: none;
+}
+
+.mcv-content pre code {
+  background: none;
+  padding: 0;
+}
+
+.mcv-content hr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #d0d0d0;
+  height: 0;
 }
 
 .mcv-content hr::before {
-  color: #d0d0d0;
+  display: none;
 }
+
+/* --- Page Break Rules --- */
 
 .mcv-header,
 .mcv-content h2,
@@ -175,4 +275,14 @@ body {
 .mcv-content pre,
 .mcv-content img {
   break-inside: avoid;
+}
+
+.mcv-content h1 {
+  break-before: page;
+}
+
+.mcv-content h1,
+.mcv-content h2,
+.mcv-content h3 {
+  break-after: avoid;
 }
