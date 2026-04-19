@@ -1,17 +1,14 @@
-import { execFile } from "node:child_process";
 import path from "node:path";
 import { readdir, readFile } from "node:fs/promises";
-import { promisify } from "node:util";
 
 import fs from "fs-extra";
 import matter from "gray-matter";
+import { buildResume } from "../src/core/build.js";
 
-const execFileAsync = promisify(execFile);
 const cwd = process.cwd();
 const examplesDir = path.join(cwd, "examples");
 const themesDir = path.join(cwd, "themes");
 const outputDir = path.join(cwd, "site");
-const cliPath = path.join(cwd, "dist", "cli.js");
 
 type SitePage = {
   exampleLabel: string;
@@ -355,17 +352,17 @@ function renderIndexHtml(pages: SitePage[]): string {
 `;
 }
 
-async function buildWithCli(inputPath: string, themeName: string, targetDirectory: string, title: string): Promise<void> {
-  await execFileAsync(process.execPath, [cliPath, "build", "-i", inputPath, "-t", themeName, "-o", targetDirectory, "--title", title], {
-    cwd
+async function buildPage(inputPath: string, themeName: string, targetDirectory: string, title: string): Promise<void> {
+  await buildResume({
+    cwd,
+    input: inputPath,
+    output: targetDirectory,
+    theme: themeName,
+    title
   });
 }
 
 async function main() {
-  if (!(await fs.pathExists(cliPath))) {
-    throw new Error(`CLI build artifact not found: ${cliPath}. Run npm run build first.`);
-  }
-
   const [themes, examples] = await Promise.all([collectBuiltInThemes(), collectExamples()]);
 
   if (examples.length === 0) {
@@ -381,7 +378,7 @@ async function main() {
     for (const theme of themes) {
       const targetDirectory = path.join(outputDir, "examples", example.slug, theme.name);
       const title = `${example.title} · ${theme.label} · MarkCV`;
-      await buildWithCli(example.inputPath, theme.name, targetDirectory, title);
+      await buildPage(example.inputPath, theme.name, targetDirectory, title);
 
       pages.push({
         exampleLabel: example.label,

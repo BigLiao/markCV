@@ -76,6 +76,7 @@ describe("buildResume", () => {
     expect(html).toContain("theme-minimal");
     expect(screenCss).toContain(".mcv-page");
     expect(screenCss).toContain("IBM Plex Sans");
+    expect(screenCss).toContain("--mcv-page-width");
     expect(html).toMatchSnapshot();
   });
 
@@ -95,6 +96,9 @@ describe("buildResume", () => {
     expect(html).toContain("bigLiao");
     expect(html).toContain("如何导出简历");
     expect(screenCss).toContain("stick.png");
+    expect(screenCss).toContain("--mcv-page-width");
+    expect(screenCss).toContain("--mcv-paper");
+    expect(screenCss).not.toContain(".mcv-pin,\n.mcv-note {\n  display: none;");
     expect(await fsExtra.pathExists(path.join(outputPath, "assets", "theme", "assets", "pin-left.png"))).toBe(true);
     expect(await fsExtra.pathExists(path.join(outputPath, "assets", "content", "001-avatar.jpeg"))).toBe(true);
     expect(html).toMatchSnapshot();

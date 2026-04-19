@@ -10,7 +10,6 @@
   --mcv-color-muted: #6b7280;
   --mcv-color-accent: currentColor;
   --mcv-color-border: #d1d5db;
-  --mcv-header-gap: 16px;
   color: var(--mcv-color-text);
   font-family: var(--mcv-font-body);
   line-height: 1.55;
@@ -49,11 +48,6 @@ body {
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
 }
 
-.mcv-pin,
-.mcv-note {
-  display: none;
-}
-
 .mcv-footer {
   margin: 20px auto 8px;
   text-align: center;
@@ -67,16 +61,7 @@ body {
 }
 
 .mcv-header {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--mcv-header-gap);
-  align-items: start;
   padding-bottom: 14px;
-  border-bottom: 1px solid var(--mcv-color-border);
-}
-
-.mcv-header-main {
-  min-width: 0;
 }
 
 .mcv-name {
@@ -100,9 +85,6 @@ body {
 }
 
 .mcv-contacts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 16px;
   list-style: none;
   margin: 14px 0 0;
   padding: 0;
@@ -128,11 +110,11 @@ body {
 }
 
 .mcv-header-avatar img {
-  width: 96px;
-  height: 96px;
+  display: block;
+  width: 100%;
+  max-width: 120px;
+  height: auto;
   object-fit: cover;
-  border-radius: 12px;
-  border: 1px solid var(--mcv-color-border);
 }
 
 .mcv-content {
@@ -211,6 +193,10 @@ body {
   margin: 20px 0;
   border: 0;
   border-top: 1px solid var(--mcv-color-border);
+}
+
+.mcv-content code {
+  font-family: "SFMono-Regular", "JetBrains Mono", monospace;
 }
 
 @media (max-width: 900px) {

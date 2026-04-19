@@ -35,12 +35,6 @@ body {
   page-break-after: auto;
 }
 
-.mcv-note,
-.mcv-footer,
-.mcv-pin {
-  display: none !important;
-}
-
 .mcv-header,
 .mcv-content table,
 .mcv-content blockquote,
