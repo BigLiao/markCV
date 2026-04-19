@@ -1,6 +1,6 @@
 {
   "name": "mark-cv",
-  "version": "2.0.0-beta.3",
+  "version": "2.0.0-beta.4",
   "description": "Markdown-first resume renderer with themeable HTML and A4 PDF output.",
   "type": "module",
   "repository": "https://github.com/BigLiao/markCV/",
