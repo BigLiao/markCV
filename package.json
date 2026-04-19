@@ -48,6 +48,9 @@
     "playwright": "^1.54.1",
     "zod": "^3.25.76"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "4.60.2"
+  },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/markdown-it": "^14.1.2",
