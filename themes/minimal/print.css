@@ -1,0 +1,32 @@
+@page {
+  size: A4;
+  margin: 0;
+}
+
+html,
+body {
+  margin: 0;
+  background: #ffffff;
+}
+
+.mcv-page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0;
+  box-shadow: none;
+}
+
+.mcv-note,
+.mcv-footer,
+.mcv-pin {
+  display: none !important;
+}
+
+.mcv-header,
+.mcv-content h2,
+.mcv-content h3,
+.mcv-content table,
+.mcv-content blockquote,
+.mcv-content img {
+  break-inside: avoid;
+}

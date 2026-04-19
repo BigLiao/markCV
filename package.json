@@ -1,57 +1,60 @@
 {
-  "name": "mark-cv",
-  "version": "1.0.1",
-  "description": "Beautiful online resume using markdown",
+  "name": "markcv",
+  "version": "2.0.0-alpha.0",
+  "description": "Markdown-first resume renderer with themeable HTML and A4 PDF output.",
+  "type": "module",
   "repository": "https://github.com/BigLiao/markCV/",
   "homepage": "https://github.com/BigLiao/markCV/",
-  "bin": {
-    "markcv": "bin/cli.js"
-  },
-  "scripts": {
-    "dev": "node lib/dev/index",
-    "build": "node lib/build/index",
-    "deploy": "node lib/publish/index",
-    "serve": "node lib/serve/index",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "license": "MIT",
+  "author": "bigLiao",
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
     "markdown",
     "resume",
-    "cv"
+    "cv",
+    "pdf",
+    "theme"
   ],
-  "author": "",
-  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "dist",
+    "themes",
+    "README.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "markcv": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "check": "tsc --noEmit",
+    "test": "vitest run",
+    "dev": "tsx src/cli/index.ts",
+    "prepack": "npm run build"
+  },
   "dependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/preset-env": "^7.6.3",
-    "babel": "^6.23.0",
-    "babel-loader": "^8.0.6",
-    "bootstrap": "^4.3.1",
-    "clean-webpack-plugin": "^3.0.0",
-    "commander": "^3.0.2",
-    "css-loader": "^3.2.0",
-    "ejs": "^2.7.1",
-    "ejs-loader": "^0.3.5",
-    "express": "^4.17.1",
-    "file-loader": "^4.2.0",
-    "fs-extra": "^8.1.0",
-    "ghpages": "^0.0.10",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
-    "markdown-it": "^10.0.0",
-    "mini-css-extract-plugin": "^0.8.0",
-    "node-sass": "^4.12.0",
-    "postcss-loader": "^3.0.0",
-    "postcss-preset-env": "^6.7.0",
-    "raw-loader": "^3.1.0",
-    "sass": "^1.23.0",
-    "sass-loader": "^8.0.0",
-    "style-loader": "^1.0.0",
-    "url-loader": "^2.2.0",
-    "webpack": "^4.41.2",
-    "webpack-dev-server": "^3.8.2",
-    "webpack-merge": "^4.2.2",
-    "yaml": "^1.7.2"
+    "cac": "^6.7.14",
+    "cheerio": "1.0.0",
+    "chokidar": "^4.0.3",
+    "fs-extra": "^11.3.2",
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0",
+    "markdown-it-task-lists": "^2.1.1",
+    "open": "^10.2.0",
+    "playwright": "^1.54.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^24.6.0",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
   }
 }

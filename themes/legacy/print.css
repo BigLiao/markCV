@@ -1,0 +1,83 @@
+@page {
+  size: A4;
+  margin: 0;
+}
+
+h1,
+h2 {
+  break-after: avoid;
+  break-inside: avoid;
+}
+
+h1 + h2 {
+  break-before: avoid;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+thead,
+tfoot,
+tr,
+th,
+td,
+li {
+  break-inside: avoid;
+}
+
+html,
+body {
+  margin: 0;
+  background: #ffffff;
+}
+
+body {
+  padding: 30px 25px;
+  color: #000000;
+}
+
+.mcv-shell {
+  width: auto;
+}
+
+.mcv-page-wrap {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.mcv-page {
+  min-height: auto;
+  padding: 0;
+  background: transparent;
+}
+
+.mcv-header-avatar {
+  width: 120px;
+  height: auto;
+  margin: 0;
+  position: absolute;
+  right: 20px;
+  top: 0;
+  border-radius: 0;
+  border: none;
+}
+
+.mcv-header-avatar img {
+  height: auto;
+}
+
+.mcv-note,
+.mcv-footer,
+.mcv-pin {
+  display: none !important;
+}
+
+a::after {
+  content: "(" attr(href) ")";
+}

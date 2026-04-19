@@ -1,143 +1,132 @@
-# markCV
-> Markdown 生成漂亮的简历网页
+# MarkCV 2.0
 
-[示例](https://bigliao.github.io/markCV/)
+Markdown-first resume renderer with themeable HTML and A4 PDF output.
 
-## 1. 特点
+## What It Does
 
-### 使用 Markdown 写简历
+- Reads a single `resume.md`
+- Uses YAML frontmatter for `basics`, `theme`, `title`, and PDF options
+- Renders the Markdown body directly to HTML
+- Wraps it in a fixed resume shell
+- Applies a built-in or local CSS theme
+- Supports preview, HTML build, PDF export, and theme tooling
 
-厌倦了写简历的时候找各种模板，那些模板编辑起来也很不方便，一不小心格式就乱了。
-最重要的是，**内容与表现不分离**，用程序员的话讲就是过于**耦合**，当你想换一个模板的时候又得重新编辑一遍。
-
-Markdown 作为一种通用文本格式就可以很好地解决这个问题。你只要专注于写内容，展示的事情交给其他渲染工具。本工具就是一个帮你生成漂亮的简历网页的工具。
-
-### 在线简历
-
-简历应当方便传播，在线简历就可以很好做到这一点。别人问你要简历的时候，直接一串网址丢过去，无论微信、QQ 或者什么地方都可以直接打开，根本不用担心格式问题。本工具已经调整好了打印样式，直接打印网页就可以，可以说是非常方便。
-
-## 2. 使用方法
-
-### 方法一：直接使用Docker镜像
-
-pull镜像，准备一个文件夹，然后将简历文件、配置文件、输出目录挂载到容器内部：
+## Install
 
 ```bash
-# 新建简历文件夹
-mkdir my-resume && cd my-resume
-
-docker pull bigliao/mark-cv
-
-# 运行 docker
-# 注意 $(pwd) 是 linux 系统中的当前目录。windows 系统中应使用 ${pwd}
-docker run --rm \
-    -v $(pwd):/markCV/app \
-    -p 3000:3000 -it bigliao/mark-cv bash
-
-npm run dev # 开发、编写简历
-npm run build # 打包
-```
-
-### 方法二：自定义Docker容器
-
-使用`node`镜像运行本项目即可，目前`node:12.10.0`试用正常。
-
-```bash
-git clone https://github.com/BigLiao/markCV.git
-
-docker run --rm -v markCV:/markCV -w /markCV -p 3000:3000 -it node:12.10.0 bash
-
 npm install
-
-npm run dev
 npm run build
 ```
 
-### 方法三：安装node环境
-本工具基于 [Node.js](https://nodejs.org) 开发，需要有 `Node.js` 开发环境。
+## Quick Start
 
-#### 使用 npm 安装
+Create a starter resume:
+
 ```bash
-# 先建一个文件夹存放简历
-mkdir my-resume && cd my-resume
-
-# 初始化 npm
-npm init -y
-
-# 安装 markCV
-npm install -S mark-cv
-
+node dist/cli.js init ./my-resume
 ```
-#### 初始化
-直接使用 `npx markcv init`，自动创建简历模板。
 
-或者手动创建：
+Preview it:
+
 ```bash
-# 新建简历文件
-touch liming.md
-
-# 写点内容
-echo '# 李明的个人信息' > liming.md
-
-# 配置 markCV 
-touch _config.yml
-# 把下面的配置内容抄进来
+node dist/cli.js dev -i ./my-resume/resume.md --open
 ```
 
-#### 编辑和预览简历
+Build HTML:
+
 ```bash
-npx markcv write
+node dist/cli.js build -i ./my-resume/resume.md -o ./my-resume/dist
 ```
-打开浏览器访问 http://localhost:3000 可以看到效果。可以一边修改 markdown 一边看效果
 
-#### 打包
+Export PDF:
+
 ```bash
-npx markcv build
+node dist/cli.js pdf -i ./my-resume/resume.md -o ./my-resume/resume.pdf
 ```
-生成静态网页放在 dist 目录下。最后把生成的 dist 文件夹部署到服务器就可以了。
 
-没有服务器的话可以部署到 GitHub Pages 上面。本工具提供了快捷命令
+## Frontmatter
+
+```md
+---
+theme: default
+title: Jane Doe - Product Designer
+lang: en
+basics:
+  name: Jane Doe
+  headline: Product Designer
+  avatar: ./assets/avatar.svg
+  email: jane@example.com
+  phone: "+86 138 0000 0000"
+  location: Shanghai
+  website: https://janedoe.design
+  github: https://github.com/janedoe
+  summary: Product designer focused on content systems and shipping work fast.
+---
+```
+
+The body stays plain Markdown.
+
+## Theme Commands
+
 ```bash
-npx markcv publish
+node dist/cli.js theme list
+node dist/cli.js theme create ./themes/my-theme
+node dist/cli.js theme check default
+node dist/cli.js theme check ./themes/my-theme
 ```
 
-### 通过 clone 本仓库使用
+Built-in themes now include `default`, `minimal`, and `legacy`.
 
-你也可以选择直接 clone 本仓库代码到你的电脑上。然后自己可以调整样式。
+Legacy example matching the old markCV style:
+
 ```bash
-git clone https://github.com/BigLiao/markCV.git
-
-cd markCV
-
-npm install
-
-npm run dev # 开发、编写简历
-npm run build # 打包
-npm run deploy # 发布到 GitHub Pages
-
+node dist/cli.js dev -i ./examples/legacy/resume.md -t legacy
 ```
 
-## 3. 配置
-需要在根目录里放一个 `_config.yml` 配置文件，内容如下
-```yml
-# 网页的 Title，在浏览器标签页里可以看到
-title: 'markCV - Beautiful online resume' 
+## Development
 
-# 如果部署的时候部署放在根目录而是子目录的，就要配置 publicPath
-# 比如在 GitHub Pages 里，需要配置为项目名称，如下。
-# 可以不配置，默认是 / 
-publicPath: '/markCV/'
-
-# 简历 markdown 地址，相对本配置文件的。必须
-resumePath: './markdown/resume-template.md'
-
-# 是否展示头部基本信息。true 的话要设置下面的 headerInfo。
-showHeader: true
-headerInfo:
-  # 头像，相对本配置文件路径，或者 URL
-  # photo: 'https://avatars1.githubusercontent.com/u/22113206?s=460&v=4'
-  photo: './markdown/avatar.jpeg'
-  name: 'bigLiao'
-  phone: '151****1111'
-  email: 'bigliao@markcv.com'
+```bash
+npm run check
+npm test
+npm run build
 ```
+
+## Release
+
+### One-Time Setup
+
+1. Generate an access token on [npmjs.com](https://www.npmjs.com/) and choose the `Automation` type.
+2. In GitHub repository `Settings -> Secrets and variables -> Actions`, add:
+   - Name: `NPM_TOKEN`
+   - Value: the npm token from the previous step
+
+### Publish a New Version
+
+```bash
+# patch release 0.1.0 -> 0.1.1
+npm version patch
+
+# minor release 0.1.0 -> 0.2.0
+npm version minor
+
+# major release 0.1.0 -> 1.0.0
+npm version major
+
+git push && git push --tags
+```
+
+After pushing a `v*` tag, GitHub Actions will:
+
+1. Install dependencies and build the package
+2. Publish to npm with `npm publish --access public`
+3. Create a GitHub Release with generated release notes
+
+### CI Pipelines
+
+- `.github/workflows/ci.yml` runs on push and pull request to `main`/`master`, validating Node 18/20 with type check, tests, and build
+- `.github/workflows/publish.yml` runs on `v*` tags and publishes to npm before creating a GitHub Release
+
+Product and architecture docs:
+
+- [MarkCV 2.0](/Users/liao/My/github/markCV/docs/markcv-2.0.md)
+- [System Design](/Users/liao/My/github/markCV/docs/system-design.md)
