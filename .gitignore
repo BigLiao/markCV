@@ -3,6 +3,4 @@ node_modules
 *.log
 .temp
 dist
-
-package-lock.json
 .idea
