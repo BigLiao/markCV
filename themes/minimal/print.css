@@ -1,6 +1,6 @@
 @page {
   size: A4;
-  margin: 0;
+  margin: 12mm;
 }
 
 html,
@@ -9,10 +9,16 @@ body {
   background: #ffffff;
 }
 
-.mcv-page {
-  width: 210mm;
-  min-height: 297mm;
+.mcv-shell {
+  width: auto;
   margin: 0;
+}
+
+.mcv-page {
+  width: auto;
+  min-height: auto;
+  margin: 0;
+  padding: 0;
   box-shadow: none;
 }
 

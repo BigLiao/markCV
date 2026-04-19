@@ -1,36 +1,6 @@
 @page {
   size: A4;
-  margin: 0;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  break-after: avoid;
-  break-inside: avoid;
-}
-
-h1 + *,
-h2 + *,
-h3 + *,
-h4 + * {
-  break-before: avoid;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-thead,
-tfoot,
-tr,
-th,
-td,
-li {
-  break-inside: avoid;
+  margin: 12mm;
 }
 
 html,
@@ -40,41 +10,174 @@ body {
 }
 
 body {
-  padding: 30px 25px;
-  color: #000000;
+  color: #1f1f1f;
+  font-family: Georgia, "Times New Roman", "Songti SC", serif;
+  line-height: 1.5;
 }
 
 .mcv-shell {
   width: auto;
+  margin: 0;
 }
 
 .mcv-page-wrap {
-  max-width: none;
+  width: auto;
   margin: 0;
   padding: 0;
-  background: transparent;
+  background: #ffffff;
   box-shadow: none;
 }
 
 .mcv-page {
   min-height: auto;
+  padding: 8mm 8mm 10mm;
+  background: #ffffff;
+  border: 2px solid #666666;
+  break-after: page;
+  page-break-after: always;
+}
+
+.mcv-page:last-child {
+  break-after: auto;
+  page-break-after: auto;
+}
+
+.mcv-header {
+  position: relative;
+  margin: 0 0 10mm;
+  padding: 0 32mm 0 0;
+  text-align: left;
+  min-height: auto;
+}
+
+.mcv-name {
+  margin: 0;
+  font-size: 20pt;
+  font-weight: 700;
+}
+
+.mcv-headline {
+  margin: 4px 0 0;
+  color: #555555;
+  font-size: 11pt;
+}
+
+.mcv-summary {
+  margin: 8px 0 0;
+  max-width: none;
+  color: #555555;
+  font-size: 10.5pt;
+}
+
+.mcv-contacts {
+  margin: 8px 0 0;
   padding: 0;
-  background: transparent;
+  list-style: none;
+  font-size: 10pt;
+}
+
+.mcv-contact-item {
+  display: inline-block;
+  padding: 0 0.45em 0 0;
+}
+
+.mcv-contact-item + .mcv-contact-item {
+  border-left: 1px solid #888888;
+  padding-left: 0.45em;
+}
+
+.mcv-contact-label {
+  display: none;
 }
 
 .mcv-header-avatar {
-  width: 120px;
+  width: 26mm;
   height: auto;
   margin: 0;
   position: absolute;
-  right: 20px;
+  right: 0;
   top: 0;
   border-radius: 0;
   border: none;
 }
 
 .mcv-header-avatar img {
+  width: 100%;
   height: auto;
+}
+
+.mcv-content {
+  padding: 0;
+  border: 0;
+}
+
+.mcv-content h1,
+.mcv-content h2,
+.mcv-content h3,
+.mcv-content h4 {
+  break-after: avoid-page;
+  page-break-after: avoid;
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+.mcv-content h1 + *,
+.mcv-content h2 + *,
+.mcv-content h3 + *,
+.mcv-content h4 + * {
+  break-before: avoid-page;
+  page-break-before: avoid;
+}
+
+.mcv-content h1,
+.mcv-content h2,
+.mcv-content h3 {
+  color: #111111;
+}
+
+.mcv-content h1 {
+  margin: 0 0 6mm;
+  padding-bottom: 1.5mm;
+  border-bottom: 1px solid #bfbebe;
+  font-size: 18pt;
+}
+
+.mcv-content h1:not(:first-child) {
+  margin-top: 9mm;
+}
+
+.mcv-content h2 {
+  margin: 7mm 0 3mm;
+  font-size: 14pt;
+}
+
+.mcv-content h3 {
+  margin: 4mm 0 2mm;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  font-size: 11.5pt;
+}
+
+.mcv-content p,
+.mcv-content li,
+.mcv-content td,
+.mcv-content th,
+.mcv-content blockquote {
+  font-size: 10.5pt;
+}
+
+.mcv-content ul,
+.mcv-content ol {
+  padding-left: 18px;
+}
+
+.mcv-content img,
+.mcv-content table,
+.mcv-content blockquote,
+.mcv-content pre {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
 }
 
 .mcv-note,
@@ -85,4 +188,6 @@ body {
 
 a::after {
   content: "(" attr(href) ")";
+  font-size: 0.9em;
+  color: #555555;
 }

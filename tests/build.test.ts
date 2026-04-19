@@ -50,6 +50,7 @@ describe("buildResume", () => {
       output: outputPath
     });
     const html = await fs.readFile(result.htmlPath, "utf8");
+    const printCss = await fs.readFile(path.join(outputPath, "assets", "theme", "print.css"), "utf8");
 
     expect(result.theme.name).toBe("default");
     expect(html).toContain("theme-default");
@@ -57,6 +58,7 @@ describe("buildResume", () => {
     expect(html).toContain("./assets/content/002-avatar.svg");
     expect(await fsExtra.pathExists(path.join(outputPath, "assets", "theme", "screen.css"))).toBe(true);
     expect(await fsExtra.pathExists(path.join(outputPath, "assets", "content", "001-portfolio-preview.svg"))).toBe(true);
+    expect(printCss).toContain("margin: 12mm;");
     expect(html).toMatchSnapshot();
   });
 
@@ -71,12 +73,14 @@ describe("buildResume", () => {
     });
     const html = await fs.readFile(result.htmlPath, "utf8");
     const screenCss = await fs.readFile(path.join(outputPath, "assets", "theme", "screen.css"), "utf8");
+    const printCss = await fs.readFile(path.join(outputPath, "assets", "theme", "print.css"), "utf8");
 
     expect(result.theme.name).toBe("minimal");
     expect(html).toContain("theme-minimal");
     expect(screenCss).toContain(".mcv-page");
     expect(screenCss).toContain("IBM Plex Sans");
     expect(screenCss).toContain("--mcv-page-width");
+    expect(printCss).toContain("margin: 12mm;");
     expect(html).toMatchSnapshot();
   });
 
@@ -90,6 +94,7 @@ describe("buildResume", () => {
     });
     const html = await fs.readFile(result.htmlPath, "utf8");
     const screenCss = await fs.readFile(path.join(outputPath, "assets", "theme", "screen.css"), "utf8");
+    const printCss = await fs.readFile(path.join(outputPath, "assets", "theme", "print.css"), "utf8");
 
     expect(result.theme.name).toBe("legacy");
     expect(html).toContain("theme-legacy");
@@ -99,6 +104,7 @@ describe("buildResume", () => {
     expect(screenCss).toContain("--mcv-page-width");
     expect(screenCss).toContain("--mcv-paper");
     expect(screenCss).not.toContain(".mcv-pin,\n.mcv-note {\n  display: none;");
+    expect(printCss).toContain("margin: 12mm;");
     expect(await fsExtra.pathExists(path.join(outputPath, "assets", "theme", "assets", "pin-left.png"))).toBe(true);
     expect(await fsExtra.pathExists(path.join(outputPath, "assets", "content", "001-avatar.jpeg"))).toBe(true);
     expect(html).toMatchSnapshot();

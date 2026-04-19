@@ -34,7 +34,7 @@ export async function exportPdf(options: CommonCommandOptions = {}): Promise<str
     try {
       const page = await browser.newPage();
       await page.goto(pathToFileURL(result.htmlPath).href, { waitUntil: "networkidle" });
-      await page.emulateMedia({ media: "screen" });
+      await page.emulateMedia({ media: "print" });
       await page.pdf({
         path: pdfPath,
         format: "A4",
