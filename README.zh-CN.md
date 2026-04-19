@@ -1,30 +1,25 @@
-# MarkCV 2.0
+# MarkCV
+
+用 Markdown 写简历，开箱即用。
 
 [![npm version](https://img.shields.io/npm/v/mark-cv)](https://www.npmjs.com/package/mark-cv)
 [![npm downloads](https://img.shields.io/npm/dm/mark-cv)](https://www.npmjs.com/package/mark-cv)
 [![CI](https://github.com/BigLiao/markCV/actions/workflows/ci.yml/badge.svg)](https://github.com/BigLiao/markCV/actions/workflows/ci.yml)
 [![license](https://img.shields.io/npm/l/mark-cv)](https://github.com/BigLiao/markCV/blob/master/LICENSE)
 
-一个以 Markdown 为中心的简历渲染器，支持主题化 HTML 输出和 A4 PDF 导出。
-
 [English README](./README.md)
 
-## 介绍
+**你只管写内容，MarkCV 搞定排版。**
 
-MarkCV 保持很克制的输入模型：
+一个 Markdown 文件就是一份简历。不用学模板语法，不用调 CSS，不用适配任何简历 DSL。写好内容、选个主题、导出 HTML 或 PDF —— 就这么简单。
 
-- 一个 `resume.md`
-- 用 YAML frontmatter 提供 `basics`、`theme`、`title`、`lang`、`pdf`
-- 用原生 Markdown 编写正文
+### 为什么选 MarkCV？
 
-然后把内容渲染进主题包：
-
-- `template.njk`
-- `screen.css`
-- `print.css`
-- `assets/`
-
-这样可以保持内容和表现分离，同时让主题拥有足够强的页面结构、装饰元素和打印能力。
+- **纯 Markdown** — 简历就是一个 `.md` 文件，随处可读，用 Git 管理版本。
+- **内容与样式分离** — 换主题只需改一行，内容纹丝不动。
+- **6 款内置主题** — 从极简到赛博朋克，风格任选。也可以自己造。
+- **像素级 PDF 导出** — 基于 Playwright 的 A4 导出，所见即所印。
+- **零配置起步** — `markcv init` → `markcv dev` → 搞定。
 
 ## 安装
 
@@ -130,5 +125,5 @@ markcv dev -i ./examples/legacy/resume.md -t legacy
 
 ## 文档
 
-- [主题开发](/Users/liao/My/github/markCV/docs/theme-development.md)
-- [开发指南](/Users/liao/My/github/markCV/docs/development-guide.md)
+- [主题开发](./docs/theme-development.md)
+- [开发指南](./docs/development-guide.md)

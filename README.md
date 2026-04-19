@@ -1,30 +1,25 @@
-# MarkCV 2.0
+# MarkCV
+
+Write your resume in Markdown. Get a beautiful page.
 
 [![npm version](https://img.shields.io/npm/v/mark-cv)](https://www.npmjs.com/package/mark-cv)
 [![npm downloads](https://img.shields.io/npm/dm/mark-cv)](https://www.npmjs.com/package/mark-cv)
 [![CI](https://github.com/BigLiao/markCV/actions/workflows/ci.yml/badge.svg)](https://github.com/BigLiao/markCV/actions/workflows/ci.yml)
 [![license](https://img.shields.io/npm/l/mark-cv)](https://github.com/BigLiao/markCV/blob/master/LICENSE)
 
-Markdown-first resume renderer with themeable HTML output and A4 PDF export.
-
 [中文说明](./README.zh-CN.md)
 
-## Overview
+**You focus on the words. MarkCV handles the rest.**
 
-MarkCV keeps the authoring model small:
+One Markdown file is all you need. No templates to wrestle, no CSS to debug, no resume-specific DSL to learn. Write plain Markdown, pick a theme, export to HTML or PDF — done.
 
-- one `resume.md`
-- YAML frontmatter for `basics`, `theme`, `title`, `lang`, and `pdf`
-- plain Markdown for the resume body
+### Why MarkCV?
 
-It renders that content into a theme package:
-
-- `template.njk`
-- `screen.css`
-- `print.css`
-- `assets/`
-
-This keeps content and presentation separate while still allowing themes to define their own page structure, decoration, and print layout.
+- **Pure Markdown** — your resume is a `.md` file, readable anywhere, version-controllable with Git.
+- **Content & style, separated** — switch themes in one line; your content stays untouched.
+- **6 built-in themes** — from clean & minimal to cyberpunk neon. Or build your own.
+- **Pixel-perfect PDF** — A4 export powered by Playwright, what you see is what you print.
+- **Zero config to start** — `markcv init` → `markcv dev` → done.
 
 ## Install
 
@@ -130,5 +125,5 @@ markcv dev -i ./examples/legacy/resume.md -t legacy
 
 ## Docs
 
-- [Theme Development](/Users/liao/My/github/markCV/docs/theme-development.md)
-- [Development Guide](/Users/liao/My/github/markCV/docs/development-guide.md)
+- [Theme Development](./docs/theme-development.md)
+- [Development Guide](./docs/development-guide.md)
